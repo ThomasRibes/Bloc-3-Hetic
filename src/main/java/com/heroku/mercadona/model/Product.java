@@ -77,5 +77,19 @@ public class Product {
     public void setIs_active(boolean is_active) {
         this.is_active = is_active;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Product{");
+        sb.append("id=").append(id);
+        sb.append(", label=").append(label);
+        sb.append(", description=").append(description);
+        sb.append(", price=").append(price);
+        sb.append(", url=").append(url);
+        sb.append(", is_active=").append(is_active);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }
