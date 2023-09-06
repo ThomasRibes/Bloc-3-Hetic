@@ -26,20 +26,38 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid text-center m-5">
+        <div class="container-fluid text-center mt-5">
             <h2>ADMIN PAGE</h2>
-            <th:block th:each="product: ${listProducts}">
-
-                <div class="card rounded shadow" style="width: 18rem;">
-                    <img src="[[${product.url]]" class="card-img-top" alt="product picture">
-                    <div class="card-body">
-                        <h4 class="card-title">[[${product.price}]]</h4>
-                        <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                        <p class="card-text">[[${product.description}]]</p>
-                    </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <a th:href = "@{/admin/product/new}" class="btn btn-primary mb-3">Add product</a>                    
                 </div>
+            </div> 
+            <table class="table table-bordered shadow-lg mt-5 table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Label</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Picture</th>
+                        <th scope="col" colspan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each = "product : ${listProducts}">
+                        <td th:text = "${product.label}"></td>
+                        <td th:text = "${product.description}"></td>
+                        <td>fruit</td>
+                        <td th:text = "${product.price}"></td>
+                        <td th:text = "${product.is_active}"></td>
+                        <td th:text = "${product.url}"></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
 
-            </th:block>
         </div>
 
     </body>
