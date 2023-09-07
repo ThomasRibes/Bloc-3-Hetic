@@ -35,9 +35,6 @@ public class Admin {
 
     @Column(nullable = false)
     private boolean is_active = true;
-    
-    @Column(nullable = false)
-    private boolean first_connexion = true;
 
     public Integer getId() {
         return id;
@@ -91,13 +88,6 @@ public class Admin {
         this.is_active = is_active;
     }
 
-    public boolean isFirst_connexion() {
-        return first_connexion;
-    }
-
-    public void setFirst_connexion(boolean first_connexion) {
-        this.first_connexion = first_connexion;
-    }
 
     @Override
     public String toString() {
