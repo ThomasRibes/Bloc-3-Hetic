@@ -80,7 +80,7 @@ public class Admin {
         return created_at;
     }
 
-    public boolean setIs_active() {
+    public boolean getIs_active() {
         return is_active;
     }
 
@@ -100,7 +100,6 @@ public class Admin {
         sb.append(", role=").append(role);
         sb.append(", created_at=").append(created_at);
         sb.append(", is_active=").append(is_active);
-        sb.append(", first_connexion=").append(first_connexion);
         sb.append('}');
         return sb.toString();
     }
