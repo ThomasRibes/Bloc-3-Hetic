@@ -2,6 +2,8 @@ package com.heroku.mercadona.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,8 +28,9 @@ public class Admin {
     @Column(nullable = false, unique = true, length = 250)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private String role;
+    private AdminState state;
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -68,14 +71,6 @@ public class Admin {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public LocalDate getCreated_at() {
         return created_at;
     }
@@ -97,11 +92,19 @@ public class Admin {
         sb.append(", name=").append(name);
         sb.append(", email=").append(email);
         sb.append(", password=").append(password);
-        sb.append(", role=").append(role);
+        sb.append(", state=").append(state);
         sb.append(", created_at=").append(created_at);
         sb.append(", is_active=").append(is_active);
         sb.append('}');
         return sb.toString();
+    }
+
+    public AdminState getState() {
+        return state;
+    }
+
+    public void setState(AdminState state) {
+        this.state = state;
     }
     
     
