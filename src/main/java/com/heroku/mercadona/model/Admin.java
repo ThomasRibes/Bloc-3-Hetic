@@ -7,8 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -38,6 +40,9 @@ public class Admin {
 
     @Column(nullable = false)
     private boolean is_active = true;
+
+    @OneToMany(mappedBy = "admin")
+    private List<Product> products;
 
     public Integer getId() {
         return id;
@@ -71,6 +76,14 @@ public class Admin {
         this.password = password;
     }
 
+    public AdminState getState() {
+        return state;
+    }
+
+    public void setState(AdminState state) {
+        this.state = state;
+    }
+
     public LocalDate getCreated_at() {
         return created_at;
     }
@@ -83,6 +96,13 @@ public class Admin {
         this.is_active = is_active;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     @Override
     public String toString() {
@@ -98,15 +118,5 @@ public class Admin {
         sb.append('}');
         return sb.toString();
     }
-
-    public AdminState getState() {
-        return state;
-    }
-
-    public void setState(AdminState state) {
-        this.state = state;
-    }
-    
-    
 
 }

@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -17,19 +19,22 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length=3)
+    @Column(nullable = false, length = 3)
     private Integer rate;
-    
+
     @Column(nullable = false)
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
-    
+
     @Column(nullable = false)
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
-    
+
     @Column(nullable = false)
     private boolean is_active;
+
+    @ManyToMany(mappedBy = "discounts")
+    private List<Product> products;
 
     public Integer getId() {
         return id;
@@ -71,6 +76,14 @@ public class Discount {
         this.is_active = is_active;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -83,5 +96,4 @@ public class Discount {
         sb.append('}');
         return sb.toString();
     }
-
 }

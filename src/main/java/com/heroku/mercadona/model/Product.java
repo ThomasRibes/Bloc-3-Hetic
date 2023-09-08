@@ -1,4 +1,3 @@
-
 package com.heroku.mercadona.model;
 
 import jakarta.persistence.Column;
@@ -6,29 +5,51 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(nullable=false, unique=true, length=50)
+
+    @Column(nullable = false, unique = true, length = 50)
     private String label;
-    
-    @Column(nullable=false, length=500)
+
+    @Column(nullable = false, length = 500)
     private String description;
-    
-    @Column(nullable=false, length=8)
+
+    @Column(nullable = false, length = 8)
     private Double price;
-    
-    @Column(nullable=false, unique=true, length=500)
+
+    @Column(nullable = false, unique = true, length = 500)
     private String url;
-    
-    @Column(nullable=false)
+
+    @Column(nullable = false)
     private boolean is_active = true;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_discount",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "discount_id")
+    )
+    private List<Discount> discounts;
 
     public Integer getId() {
         return id;
@@ -78,6 +99,30 @@ public class Product {
         this.is_active = is_active;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -91,5 +136,5 @@ public class Product {
         sb.append('}');
         return sb.toString();
     }
-    
+
 }
