@@ -14,7 +14,6 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -41,7 +40,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
                         <th scope="col">Active</th>
-                        <th scope="col">Picture</th>
+                        <th scope="col">Picture url</th>
                         <th scope="col" colspan="3">Actions</th>
                     </tr>
                 </thead>
@@ -49,16 +48,14 @@
                     <tr th:each = "product : ${listProducts}">
                         <td th:text = "${product.label}"></td>
                         <td th:text = "${product.description}"></td>
-                        <td>fruit</td>
+                        <td th:text = "${product.category.label}"></td>
                         <td th:text = "${product.price}"></td>
                         <td th:text = "${product.is_active}"></td>
                         <td th:text = "${product.url}"></td>
-                        
+
                     </tr>
                 </tbody>
             </table>
-
         </div>
-
     </body>
 </html>
