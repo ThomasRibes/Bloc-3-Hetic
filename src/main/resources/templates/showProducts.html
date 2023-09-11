@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
     <head>
         <title>Mercadona - catalog</title>
-        <meta charset="UTF-8" >        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
-        <meta name="description" content="Mercadona retail, get all you want">
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
+        <meta charset="UTF-8" ></meta>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
+        <meta name="description" content="Mercadona retail, get all you want"></meta>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -28,16 +28,17 @@
         </nav>
         <div class="container-fluid text-center m-5">
             <h2>Our products</h2>
-            <th:block th:each="product: ${listProducts}">
-
-                <div class="card rounded shadow" style="width: 18rem;">
-                    <img src="[[${product.url]]" class="card-img-top" alt="product picture">
-                    <div class="card-body">
-                        <h4 class="card-title">[[${product.price}]]</h4>
-                        <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                        <p class="card-text">[[${product.description}]]</p>
+            <div class="row">
+                <th:block th:each="product: ${listProducts}">
+                    <div class="card rounded shadow col-sm-2 m-3" style="width: 18rem;">
+                        <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
+                        <div class="card-body">
+                            <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
+                            <h4 class="card-title">[[${product.price}]] €</h4>
+                            <p class="card-text">[[${product.description}]]</p>
+                        </div>
                     </div>
-                </div>
+            </div>
 
             </th:block>
         </div>
