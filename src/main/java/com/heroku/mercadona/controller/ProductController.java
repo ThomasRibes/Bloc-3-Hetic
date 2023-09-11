@@ -1,6 +1,8 @@
 package com.heroku.mercadona.controller;
 
+import com.heroku.mercadona.model.Category;
 import com.heroku.mercadona.model.Product;
+import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.ProductService;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProductController {
 
     private ProductService productService;
+    private CategoryService categoryService;
 
-    public ProductController(ProductService service) {
-        this.productService = service;
+    public ProductController(ProductService productService, CategoryService categoryService) {
+        this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/catalog")
@@ -33,7 +37,10 @@ public class ProductController {
     @GetMapping("/admin/product/new")
     public String createProductForm(Model model) {
         Product product = new Product();
+        List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("product", product);
+        model.addAttribute("listCategories", listCategories);
+        System.out.println(listCategories);
         return "createProduct";
     }
 
