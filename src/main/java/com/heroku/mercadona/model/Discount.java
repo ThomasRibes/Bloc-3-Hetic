@@ -7,8 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -19,13 +23,19 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Rate is compulsory")
+    @Positive(message = "Only positive rate are allowed")
+    @Digits(integer = 3, fraction = 0, message = "Rate should have 1 to 3 digits and not fractional")
+    @Pattern(regexp = "^[0-9]+$", message = "Rate can only contains digits")
     @Column(nullable = false, length = 3)
     private Integer rate;
 
+    @NotNull(message = "Start date is compulsory")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
+    @NotNull(message = "End date is compulsory")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;

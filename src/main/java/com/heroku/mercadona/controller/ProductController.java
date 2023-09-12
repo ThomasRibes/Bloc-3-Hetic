@@ -53,6 +53,8 @@ public class ProductController {
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid Product product, BindingResult result, Model model){
         if (result.hasErrors()){
+            List<Category> listCategories = categoryService.getAllCategories();
+            model.addAttribute("listCategories", listCategories);
             return "createProduct";
         }
         this.productRepository.save(product);

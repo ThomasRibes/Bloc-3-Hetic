@@ -10,6 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,15 +26,23 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Name is compulsory")
+    @Size(min = 3, max = 50, message = "Name should be a minimum of 3 characters and a maximum of 30")
     @Column(nullable = false, length = 30)
     private String name;
 
+    @NotNull(message = "Email is compulsory")
+    @Email(message = "Email Address is not a valid format")
     @Column(nullable = false, unique = true, length = 250)
     private String email;
 
+    @NotNull(message = "Password is compulsory")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8, 16}$",
+            message = "Password should contains a minimum of: 1 lower case , 1 upper case, 1 digit, 1 special character, no white spaces and at least 8 and at most 20 characters")
     @Column(nullable = false, unique = true, length = 250)
     private String password;
 
+    @NotNull(message = "State is compulsory")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private AdminState state;

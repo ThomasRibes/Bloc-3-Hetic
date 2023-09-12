@@ -11,6 +11,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -21,15 +27,29 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
+    @NotNull(message = "Label is compulsory")
+    @Size(min = 3, max = 50, message = "Label should be a minimum of 3 characters and a maximum of 50")
+    @Pattern(regexp = "[a-z-A-Z]*", message = "Label has invalid characters")
     @Column(nullable = false, unique = true, length = 50)
     private String label;
 
+    @NotNull(message = "Description is compulsory")
+    @Pattern(regexp = "[a-z-A-Z]*", message = "Description has invalid characters")
+    @Size(min = 10, max = 500, message = "Description should be a minimum of 10 characters and a maximum of 500")
     @Column(nullable = false, length = 500)
     private String description;
 
+    @NotNull(message = "Price is compulsory")
+    @Positive(message = "Price is can only be positive")
+    @DecimalMax(value = "10000.0", message = "Maximum price is 10000.00€")
+    @DecimalMin(value = "0.01", message = "Minimum price is 0.01€")
     @Column(nullable = false, length = 8)
     private Double price;
 
+//  To implements when implementing urls 
+//    @NotNull(message = "Url is compulsory")
+//    @Size(min = 10, max = 500, message = "URL should be a minimum of 10 characters and a maximum of 500")
     @Column(nullable = false, length = 500)
     private String url;
 
