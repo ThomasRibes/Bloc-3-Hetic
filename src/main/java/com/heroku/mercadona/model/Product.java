@@ -1,5 +1,6 @@
 package com.heroku.mercadona.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Product {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "product_discount",
             joinColumns = @JoinColumn(name = "product_id"),

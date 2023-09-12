@@ -1,5 +1,6 @@
 package com.heroku.mercadona.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,7 +42,7 @@ public class Admin {
     @Column(nullable = false)
     private boolean is_active = true;
 
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Integer getId() {
