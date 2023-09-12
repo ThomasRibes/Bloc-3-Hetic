@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Mercadona - ADMIN</title>
+        <meta charset="UTF-8" ></meta>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
+        <meta name="description" content="Mercadona retail, get all you want"></meta>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">Mercadona - ADMIN</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/catalog">Catalog <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <h2 class="mt-5">Add a product</h2>
+            <form class="mt-5" th:action="@{/admin/product/update/{id}(id=${product.id})}" th:object="${product}" method="post">
+                <div class="form-group">
+                    <label for="label">Product label</label>
+                    <input th:field="*{label}" type="text" class="form-control" id="label" placeholder="Type the product label here (50 char max)" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Product price (€)</label>
+                    <input th:field="*{price}" type="number" class="form-control" id="price" pattern="\d+" min="1" placeholder="Type the product price here" required>
+                </div>
+                <div class="form-group">
+                    <label for="Description">Product description</label>
+                    <textarea th:field="*{description}" class="form-control" id="Description" rows="3" maxlength="500" placeholder="Type the product description here (500 char max)" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select th:field="*{category}" class="form-control" id="category" required>
+                        <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <label for="picture">Product picture</label>
+                    <input th:field="*{url}" value="https://s2.qwant.com/thumbr/474x296/e/d/c5fb05a293cc970487dd12f0a2d277b90ee11aaf960a6a1d122a77cfc27ac1/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.v-vfCygQt8ClBv2DOJGdrwHaEo%26pid%3DApi&q=0&b=1&p=0&a=0"
+                           type="text" class="form-control-file" id="picture" >
+                </div>
+                <button type="submit" class="btn btn-warning">Update this product</button>
+            </form>
+        </div>
+    </body>

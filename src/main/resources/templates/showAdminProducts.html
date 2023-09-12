@@ -51,7 +51,12 @@
                         <td th:text = "${product.category.label}"></td>
                         <td th:text = "${product.price}"></td>
                         <td th:text = "${product.is_active}"></td>
-                        <td th:text = "${product.url}"></td>
+                        <td class="col-lg-3" th:text = "${product.url}"></td>
+                        <td class="col-lg-4" >
+                            <a th:href = "@{/admin/product/discount/{id}(id=${product.id})}" class="btn btn-success mb-3">Add discount</a>
+                            <a th:href = "@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-warning mb-3">Update product</a>
+                            <a th:href = "@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger mb-3">Delete product</a>
+                        </td>
 
                     </tr>
                 </tbody>
