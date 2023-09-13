@@ -21,9 +21,9 @@ public class ProductRepositoryTests {
     @Test
     public void testAddNew() {
         Product product = new Product();
-        product.setDescription("product test2");
+        product.setDescription("product test");
         product.setIs_active(true);
-        product.setLabel("tested product2");
+        product.setLabel("tested product");
         product.setPrice(50.0);
         product.setUrl("product test url2");
 
@@ -68,12 +68,13 @@ public class ProductRepositoryTests {
     }
 
 //    @Test
-//    public void testDelete(){
-//        Integer productId = 1;
-//        repo.deleteById(productId);
+//    public void testDelete() {
 //        
+//        Integer productId = 2;
+//        repo.deleteById(productId);
+//
 //        Optional<Product> optionalProduct = repo.findById(productId);
 //        Assertions.assertThat(optionalProduct).isNotPresent();
 //    }
-    
+
 }
