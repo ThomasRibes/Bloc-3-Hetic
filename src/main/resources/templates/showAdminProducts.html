@@ -38,7 +38,7 @@
                         <th scope="col">Label</th>
                         <th scope="col">Description</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Price (€)</th>
                         <th scope="col">Active</th>
                         <th scope="col">Picture url</th>
                         <th scope="col" colspan="3">Actions</th>
@@ -49,7 +49,7 @@
                         <td th:text = "${product.label}"></td>
                         <td th:text = "${product.description}"></td>
                         <td th:text = "${product.category.label}"></td>
-                        <td th:text = "${product.price}"></td>
+                        <td th:text = "${product.price}" ></td>
                         <td th:text = "${product.is_active}"></td>
                         <td class="col-lg-3" th:text = "${product.url}"></td>
                         <td class="col-lg-4" >

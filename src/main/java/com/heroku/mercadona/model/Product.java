@@ -41,7 +41,7 @@ public class Product {
     private String description;
 
     @NotNull(message = "Price is compulsory")
-    @Positive(message = "Price is can only be positive")
+    @Positive(message = "Price can only be positive")
     @DecimalMax(value = "10000.0", message = "Maximum price is 10000.00€")
     @DecimalMin(value = "0.01", message = "Minimum price is 0.01€")
     @Column(nullable = false, length = 8)
