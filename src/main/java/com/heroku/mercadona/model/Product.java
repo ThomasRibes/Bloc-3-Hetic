@@ -30,12 +30,12 @@ public class Product {
 
     @NotNull(message = "Label is compulsory")
     @Size(min = 3, max = 50, message = "Label should be a minimum of 3 characters and a maximum of 50")
-    @Pattern(regexp = "[a-z-A-Z]*", message = "Label has invalid characters")
+    @Pattern(regexp = "^[A-Za-z0-9\\s^'!.?:()_-]*$", message = "Label has invalid characters, only apostrophes, alphanumerics and _-.!?:() are allowed")
     @Column(nullable = false, unique = true, length = 50)
     private String label;
 
     @NotNull(message = "Description is compulsory")
-    @Pattern(regexp = "[a-z-A-Z]*", message = "Description has invalid characters")
+    @Pattern(regexp = "^[A-Za-z0-9\\s^'!.?:()_-]*$", message = "Description has invalid characters, only apostrophes, alphanumerics and _-.!?:() are allowed")
     @Size(min = 10, max = 500, message = "Description should be a minimum of 10 characters and a maximum of 500")
     @Column(nullable = false, length = 500)
     private String description;
@@ -50,7 +50,7 @@ public class Product {
 //  To implements when implementing urls 
 //    @NotNull(message = "Url is compulsory")
 //    @Size(min = 10, max = 500, message = "URL should be a minimum of 10 characters and a maximum of 500")
-    @Column(nullable = false, length = 500)
+    @Column(/*nullable = false,*/ length = 500)
     private String url;
 
     @Column(nullable = false)

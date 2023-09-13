@@ -49,46 +49,47 @@ public class ProductController {
         model.addAttribute("listCategories", listCategories);
         return "createProduct";
     }
-    
+
     @PostMapping("/admin/product/add")
-    public String addProduct(@Valid Product product, BindingResult result, Model model){
-        if (result.hasErrors()){
+    public String addProduct(@Valid Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             List<Category> listCategories = categoryService.getAllCategories();
             model.addAttribute("listCategories", listCategories);
             return "createProduct";
         }
         this.productRepository.save(product);
         System.out.println(product);
-        return "redirect:/admin";    
+        return "redirect:/admin";
     }
-    
+
     @GetMapping("/admin/product/edit/{id}")
-    public String updateProductForm(@PathVariable("id") Integer id, Model model){
+    public String updateProductForm(@PathVariable("id") Integer id, Model model) {
         List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("listCategories", listCategories);
         Product product = this.productRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("Invalid product id : " + id));
-        model.addAttribute("product",product);
-        return "updateProduct";    
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product id : " + id));
+        model.addAttribute("product", product);
+        return "updateProduct";
     }
-    
+
     @PostMapping("/admin/product/update/{id}")
-    public String updateProduct(@PathVariable("id") Integer id, @Valid Product product, BindingResult result, Model model){
-        if (result.hasErrors()){
+    public String updateProduct(@PathVariable("id") Integer id, @Valid Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             product.setId(id);
+            List<Category> listCategories = categoryService.getAllCategories();
+            model.addAttribute("listCategories", listCategories);
             return "updateProduct";
         }
         productRepository.save(product);
         return "redirect:/admin";
     }
-    
+
     @GetMapping("admin/product/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Integer id, Model model){
+    public String deleteProduct(@PathVariable("id") Integer id, Model model) {
         Product product = this.productRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("Invalid product id : " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product id : " + id));
         this.productRepository.delete(product);
         return "redirect:/admin";
     }
-    
 
 }
