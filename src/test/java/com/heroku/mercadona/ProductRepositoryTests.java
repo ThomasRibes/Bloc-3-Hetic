@@ -33,18 +33,6 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void testListAllProducts() {
-        Iterable<Product> products = repo.findAll();
-
-        Assertions.assertThat(products).hasSizeGreaterThan(0);
-
-        List<Product> productList = new ArrayList<>();
-        for (Product product : products) {
-            System.out.println(product);
-        }
-    }
-
-    @Test
     public void testAddProduct() {
         Product product = new Product();
         product.setDescription("product test");
@@ -60,6 +48,27 @@ public class ProductRepositoryTests {
     }
 
     @Test
+    public void testGet() {
+        Optional<Product> optionalProduct = repo.findById(getLastInsertedProductId());
+        Product product = optionalProduct.get();
+
+        Assertions.assertThat(optionalProduct).isPresent();
+        System.out.println(optionalProduct.get());
+    }
+
+    @Test
+    public void testListAllProducts() {
+        Iterable<Product> products = repo.findAll();
+
+        Assertions.assertThat(products).hasSizeGreaterThan(0);
+
+        List<Product> productList = new ArrayList<>();
+        for (Product product : products) {
+            System.out.println(product);
+        }
+    }
+
+    @Test
     public void testUpdate() {
         Optional<Product> optionalProduct = repo.findById(getLastInsertedProductId());
         Product product = optionalProduct.get();
@@ -69,15 +78,6 @@ public class ProductRepositoryTests {
 
         Product updatedProduct = repo.findById(getLastInsertedProductId()).get();
         Assertions.assertThat(updatedProduct.getDescription()).isEqualTo("updated description");
-    }
-
-    @Test
-    public void testGet() {
-        Optional<Product> optionalProduct = repo.findById(getLastInsertedProductId());
-        Product product = optionalProduct.get();
-
-        Assertions.assertThat(optionalProduct).isPresent();
-        System.out.println(optionalProduct.get());
     }
 
     @Test
