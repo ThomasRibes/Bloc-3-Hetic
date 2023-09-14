@@ -12,13 +12,13 @@ import org.springframework.test.annotation.Rollback;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
-public class CategoryRepositoryTest {
+public class CategoryRepositoryTests {
 
     @Autowired
     private CategoryRepository repo;
 
     @Test
-    public void testListAll() {
+    public void testListAllCategories() {
         Iterable<Category> categories = repo.findAll();
 
         Assertions.assertThat(categories).hasSizeGreaterThan(0);

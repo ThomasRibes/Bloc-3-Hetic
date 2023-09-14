@@ -25,7 +25,7 @@ public class ProductRepositoryTests {
         product.setIs_active(true);
         product.setLabel("tested product");
         product.setPrice(50.0);
-        product.setUrl("product test url2");
+        product.setUrl("product test url");
 
         Product savedProduct = repo.save(product);
 
@@ -34,7 +34,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void testListAll() {
+    public void testListAllProducts() {
         Iterable<Product> products = repo.findAll();
 
         Assertions.assertThat(products).hasSizeGreaterThan(0);
@@ -46,7 +46,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testUpdate() {
-        Integer productId = 1;
+        Integer productId = 4;
         Optional<Product> optionalProduct = repo.findById(productId);
         Product product = optionalProduct.get();
         product.setDescription("updated description");
@@ -59,7 +59,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testGet() {
-        Integer productId = 1;
+        Integer productId = 4;
         Optional<Product> optionalProduct = repo.findById(productId);
         Product product = optionalProduct.get();
 
