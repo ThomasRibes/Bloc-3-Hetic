@@ -28,6 +28,9 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+/hibernate.cfg.xml
+/Persistence.xml
 
 ### VS Code ###
 .vscode/
+/nbproject/
