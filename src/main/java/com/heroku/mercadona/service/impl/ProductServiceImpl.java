@@ -1,4 +1,3 @@
-
 package com.heroku.mercadona.service.impl;
 
 import com.heroku.mercadona.model.Product;
@@ -8,7 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
+
     private ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
