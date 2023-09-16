@@ -15,11 +15,11 @@ import org.springframework.test.annotation.Rollback;
 public class CategoryRepositoryTests {
 
     @Autowired
-    private CategoryRepository repo;
+    private CategoryRepository categoryTestRepository;
 
     @Test
-    public void testListAllCategories() {
-        Iterable<Category> categories = repo.findAll();
+    public void integrationTestListAllCategories() {
+        Iterable<Category> categories = categoryTestRepository.findAll();
 
         Assertions.assertThat(categories).hasSizeGreaterThan(0);
 
