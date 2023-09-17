@@ -3,6 +3,7 @@ package com.heroku.mercadona.service.impl;
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.repository.ProductRepository;
 import com.heroku.mercadona.service.ProductService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(Integer id){
         this.productRepository.deleteById(id);
+    }
+    
+    public Integer getLastInsertedProductId() {
+        Iterable<Product> products = this.getAllProducts();
+        List<Product> productList = new ArrayList<>();
+        for (Product product : products) {
+            productList.add(product);
+        }
+        int index = productList.size() - 1;
+        Product lastInsertedProduct = productList.get(index);
+
+        return lastInsertedProduct.getId();
     }
 }
