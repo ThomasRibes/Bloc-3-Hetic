@@ -2,7 +2,6 @@ package com.heroku.mercadona.controller;
 
 import com.heroku.mercadona.model.Category;
 import com.heroku.mercadona.model.Product;
-import com.heroku.mercadona.repository.ProductRepository;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.ProductService;
 import java.util.List;
@@ -19,12 +18,10 @@ public class ProductController {
 
     private ProductService productService;
     private CategoryService categoryService;
-    private ProductRepository productRepository;
 
-    public ProductController(ProductService productService, CategoryService categoryService, ProductRepository productRepository) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
-        this.productRepository = productRepository;
     }
 
     @GetMapping("/catalog")
@@ -57,7 +54,7 @@ public class ProductController {
             model.addAttribute("listCategories", listCategories);
             return "createProduct";
         }
-        this.productRepository.save(product);
+        this.productService.saveProduct(product);
         System.out.println(product);
         return "redirect:/admin";
     }
@@ -66,8 +63,7 @@ public class ProductController {
     public String updateProductForm(@PathVariable("id") Integer id, Model model) {
         List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("listCategories", listCategories);
-        Product product = this.productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product id : " + id));
+        Product product = this.productService.getProductById(id);
         model.addAttribute("product", product);
         return "updateProduct";
     }
@@ -80,15 +76,14 @@ public class ProductController {
             model.addAttribute("listCategories", listCategories);
             return "updateProduct";
         }
-        productRepository.save(product);
+        productService.saveProduct(product);
         return "redirect:/admin";
     }
 
     @GetMapping("admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, Model model) {
-        Product product = this.productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product id : " + id));
-        this.productRepository.delete(product);
+        Product product = this.productService.getProductById(id);
+        this.productService.deleteProductById(id);
         return "redirect:/admin";
     }
 
