@@ -1,44 +1,26 @@
 package com.heroku.mercadona;
 
 import com.heroku.mercadona.model.Product;
-import com.heroku.mercadona.repository.ProductRepository;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.assertj.core.api.Assertions;
+import com.heroku.mercadona.service.ProductService;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(false)
+@SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 public class ProductRepositoryTests {
 
     @Autowired
-    private ProductRepository productTestRepository;
-
-    public Integer getLastInsertedProductId() {
-        Iterable<Product> products = productTestRepository.findAll();
-        List<Product> productList = new ArrayList<>();
-        for (Product product : products) {
-            productList.add(product);
-        }
-        int index = productList.size() - 1;
-        Product lastInsertedProduct = productList.get(index);
-
-        return lastInsertedProduct.getId();
-    }
+    private ProductService productService;
 
     @Test
     @Order(1)
     public void integrationTestAddProduct() {
+        //Arrange
         Product product = new Product();
         product.setDescription("product test");
         product.setIs_active(true);
@@ -46,54 +28,68 @@ public class ProductRepositoryTests {
         product.setPrice(50.0);
         product.setUrl("product test url");
 
-        Product savedProduct = productTestRepository.save(product);
+        //Act
+        productService.saveProduct(product);
 
-        Assertions.assertThat(savedProduct).isNotNull();
-        Assertions.assertThat(savedProduct.getId()).isGreaterThan(0);
+        //Assert
+        Assertions.assertNotNull(product, "Product should not be null");
+        Assertions.assertTrue(product.getId() > 0, "Product id should be greater than 0");
     }
 
     @Test
     @Order(2)
-    public void integrationTestGet() {
-        Optional<Product> optionalProduct = productTestRepository.findById(getLastInsertedProductId());
-        Product product = optionalProduct.get();
+    public void integrationTestGetProductById() {
+        //Arrange
+        //Act
+        Product product = productService.getProductById(productService.getLastInsertedProductId());
 
-        Assertions.assertThat(optionalProduct).isPresent();
-        System.out.println(optionalProduct.get());
+        //Assert
+        Assertions.assertNotNull(product, "Product should not be null");
     }
 
     @Test
     @Order(3)
     public void integrationTestListAllProducts() {
-        Iterable<Product> products = productTestRepository.findAll();
+        //Arrange
+        //Act
+        Iterable<Product> products = productService.getAllProducts();
 
-        Assertions.assertThat(products).hasSizeGreaterThan(0);
+        long size = products.spliterator().getExactSizeIfKnown();
 
-        List<Product> productList = new ArrayList<>();
-        for (Product product : products) {
-            System.out.println(product);
-        }
+        //Assert
+        Assertions.assertTrue(size > 0, "Product list exists");
     }
 
     @Test
     @Order(4)
     public void integrationTestUpdate() {
-        Optional<Product> optionalProduct = productTestRepository.findById(getLastInsertedProductId());
-        Product product = optionalProduct.get();
-        product.setDescription("updated description");
+        //Arrange
+        int id = productService.getLastInsertedProductId();
+        Product product = productService.getProductById(id);
+        String expected = "updated description";
+        product.setDescription(expected);
 
-        productTestRepository.save(product);
+        //Act
+        productService.saveProduct(product);
 
-        Product updatedProduct = productTestRepository.findById(getLastInsertedProductId()).get();
-        Assertions.assertThat(updatedProduct.getDescription()).isEqualTo("updated description");
+        Product updatedProduct = productService.getProductById(id);
+        String actual = updatedProduct.getDescription();
+
+        //Assert
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     @Order(5)
-    public void integrationTestDelete() {
-        int id = getLastInsertedProductId();
-        productTestRepository.deleteById(id);
-        Optional<Product> optionalProduct = productTestRepository.findById(id);
-        Assertions.assertThat(optionalProduct).isNotPresent();
+    public void integrationTestDeleteProductById() {
+        //Arrange
+        int id = productService.getLastInsertedProductId();
+
+        //Act
+        productService.deleteProductById(id);
+        int idAfterDeleteTest = productService.getLastInsertedProductId();
+
+        //Assert
+        Assertions.assertNotEquals(id, idAfterDeleteTest, "Failure , id are equals");
     }
 }
