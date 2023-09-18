@@ -27,10 +27,8 @@ public class ProductRepositoryTests {
         product.setLabel("tested product");
         product.setPrice(50.0);
         product.setUrl("product test url");
-
         //Act
         productService.saveProduct(product);
-
         //Assert
         Assertions.assertNotNull(product, "Product should not be null");
         Assertions.assertTrue(product.getId() > 0, "Product id should be greater than 0");
@@ -42,7 +40,6 @@ public class ProductRepositoryTests {
         //Arrange
         //Act
         Product product = productService.getProductById(productService.getLastInsertedProductId());
-
         //Assert
         Assertions.assertNotNull(product, "Product should not be null");
     }
@@ -53,9 +50,7 @@ public class ProductRepositoryTests {
         //Arrange
         //Act
         Iterable<Product> products = productService.getAllProducts();
-
         long size = products.spliterator().getExactSizeIfKnown();
-
         //Assert
         Assertions.assertTrue(size > 0, "Product list exists");
     }
@@ -68,13 +63,10 @@ public class ProductRepositoryTests {
         Product product = productService.getProductById(id);
         String expected = "updated description";
         product.setDescription(expected);
-
         //Act
         productService.saveProduct(product);
-
         Product updatedProduct = productService.getProductById(id);
         String actual = updatedProduct.getDescription();
-
         //Assert
         Assertions.assertEquals(expected, actual);
     }
@@ -84,11 +76,9 @@ public class ProductRepositoryTests {
     public void integrationTestDeleteProductById() {
         //Arrange
         int id = productService.getLastInsertedProductId();
-
         //Act
         productService.deleteProductById(id);
         int idAfterDeleteTest = productService.getLastInsertedProductId();
-
         //Assert
         Assertions.assertNotEquals(id, idAfterDeleteTest, "Failure , id are equals");
     }

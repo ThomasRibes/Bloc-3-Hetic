@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -34,16 +34,17 @@ public class ProductServiceImpl implements ProductService {
         if (optional.isPresent()) {
             product = optional.get();
         } else {
-            new RuntimeException("Product not found for id : " + id);
+            throw new RuntimeException("Product not found for id : " + id);
         }
         return product;
     }
-    
+
     @Override
-    public void deleteProductById(Integer id){
+    public void deleteProductById(Integer id) {
         this.productRepository.deleteById(id);
     }
-    
+
+    @Override
     public Integer getLastInsertedProductId() {
         Iterable<Product> products = this.getAllProducts();
         List<Product> productList = new ArrayList<>();
