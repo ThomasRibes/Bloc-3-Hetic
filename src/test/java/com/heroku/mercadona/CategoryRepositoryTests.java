@@ -14,7 +14,7 @@ public class CategoryRepositoryTests {
     private CategoryService categoryService;
 
     @Test
-    public void integrationTestListAllCategories() {
+    public void integrationTestCategoryRepositoryListAllCategories() {
         //Arrange
         //Act
         Iterable<Category> categories = categoryService.getAllCategories();

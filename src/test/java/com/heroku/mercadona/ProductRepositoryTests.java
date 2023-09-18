@@ -19,7 +19,7 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(1)
-    public void integrationTestAddProduct() {
+    public void integrationTestProductRepositoryAddProduct() {
         //Arrange
         Product product = new Product();
         product.setDescription("product test");
@@ -36,7 +36,7 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(2)
-    public void integrationTestGetProductById() {
+    public void integrationTestProductRepositoryGetProductById() {
         //Arrange
         //Act
         Product product = productService.getProductById(productService.getLastInsertedProductId());
@@ -46,7 +46,7 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(3)
-    public void integrationTestListAllProducts() {
+    public void integrationTestProductRepositoryListAllProducts() {
         //Arrange
         //Act
         Iterable<Product> products = productService.getAllProducts();
@@ -57,7 +57,7 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(4)
-    public void integrationTestUpdate() {
+    public void integrationTestProductRepositoryUpdate() {
         //Arrange
         int id = productService.getLastInsertedProductId();
         Product product = productService.getProductById(id);
@@ -73,7 +73,7 @@ public class ProductRepositoryTests {
 
     @Test
     @Order(5)
-    public void integrationTestDeleteProductById() {
+    public void integrationTestProductRepositoryDeleteProductById() {
         //Arrange
         int id = productService.getLastInsertedProductId();
         //Act

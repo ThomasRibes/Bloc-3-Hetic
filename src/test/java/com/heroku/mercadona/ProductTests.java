@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ProductTests {
 
     @Test
-    public void unitTestSetIdAndGetId() {
+    public void unitTestProductSetIdAndGetId() {
         //Arrange
         Product product = new Product();
         Integer expected = 0;
@@ -27,7 +27,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetLabelAndGetLabel() {
+    public void unitTestProductSetLabelAndGetLabel() {
         //Arrange
         Product product = new Product();
         String expected = "label";
@@ -39,7 +39,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetDescriptionAndGetDescription() {
+    public void unitTestProductSetDescriptionAndGetDescription() {
         //Arrange
         Product product = new Product();
         String expected = "description";
@@ -51,7 +51,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetPriceAndGetPrice() {
+    public void unitTestProductSetPriceAndGetPrice() {
         //Arrange
         Product product = new Product();
         Double expected = 10.00;
@@ -63,7 +63,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetUrlAndGetUrl() {
+    public void unitTestProductSetUrlAndGetUrl() {
         //Arrange
         String expected = "url";
         Product product = new Product();
@@ -75,7 +75,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetIs_activeAndGetIs_active() {
+    public void unitTestProductSetIs_activeAndGetIs_active() {
         //Arrange
         Product product = new Product();
         //Act
@@ -86,7 +86,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetCategoryAndGetCategory() {
+    public void unitTestProductSetCategoryAndGetCategory() {
         //Arrange
         Category category = new Category();
         category.setId(555);
@@ -100,7 +100,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetAdminAndGetAdmin() {
+    public void unitTestProductSetAdminAndGetAdmin() {
         //Arrange
         Admin admin = new Admin();
         admin.setId(111);
@@ -114,7 +114,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestSetDiscountAndGetDiscount() {
+    public void unitTestProductSetDiscountAndGetDiscount() {
         //Arrange
         Discount discount = new Discount();
         discount.setId(222);
@@ -130,7 +130,7 @@ public class ProductTests {
     }
 
     @Test
-    public void unitTestToString() {
+    public void unitTestProductToString() {
         //Arrange
         Product product = new Product();
         product.setId(1);
