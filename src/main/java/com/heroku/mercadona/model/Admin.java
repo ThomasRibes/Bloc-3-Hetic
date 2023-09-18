@@ -101,6 +101,10 @@ public class Admin {
         return created_at;
     }
 
+    public void setCreated_at(LocalDate created_at) {
+        this.created_at = created_at;
+    }
+
     public boolean getIs_active() {
         return is_active;
     }

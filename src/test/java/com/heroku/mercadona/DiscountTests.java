@@ -1,6 +1,5 @@
 package com.heroku.mercadona;
 
-import com.heroku.mercadona.model.Category;
 import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.model.Product;
 import java.text.SimpleDateFormat;
