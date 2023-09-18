@@ -1,4 +1,4 @@
-package com.heroku.mercadona;
+package com.heroku.mercadona.UnitTests;
 
 import com.heroku.mercadona.model.Category;
 import com.heroku.mercadona.model.Product;

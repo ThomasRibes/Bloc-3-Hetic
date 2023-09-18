@@ -1,4 +1,4 @@
-package com.heroku.mercadona;
+package com.heroku.mercadona.IntegrationTests;
 
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.ProductService;

@@ -1,5 +1,5 @@
 
-package com.heroku.mercadona;
+package com.heroku.mercadona.UnitTests;
 
 import com.heroku.mercadona.model.Admin;
 import com.heroku.mercadona.model.Category;
