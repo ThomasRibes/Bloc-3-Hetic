@@ -78,7 +78,7 @@ public class Discount {
         this.endDate = endDate;
     }
 
-    public boolean isIs_active() {
+    public boolean getIs_active() {
         return is_active;
     }
 
