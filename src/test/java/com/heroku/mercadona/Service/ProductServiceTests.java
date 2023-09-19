@@ -1,4 +1,4 @@
-package com.heroku.mercadona.IntegrationTests;
+package com.heroku.mercadona.Service;
 
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.ProductService;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class ProductRepositoryTests {
+public class ProductServiceTests {
 
     @Autowired
     private ProductService productService;
