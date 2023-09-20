@@ -2,23 +2,18 @@ package com.heroku.mercadona.Service;
 
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.ProductService;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class)
 public class ProductServiceTests {
 
     @Autowired
     private ProductService productService;
 
     @Test
-    @Order(1)
     public void integrationTestProductRepositoryAddProduct() {
         //Arrange
         Product product = new Product();
@@ -35,7 +30,6 @@ public class ProductServiceTests {
     }
 
     @Test
-    @Order(2)
     public void integrationTestProductRepositoryGetProductById() {
         //Arrange
         Product product1 = new Product();
@@ -58,7 +52,6 @@ public class ProductServiceTests {
     }
 
     @Test
-    @Order(3)
     public void integrationTestProductRepositoryListAllProducts() {
         //Arrange
         //Act
@@ -69,7 +62,6 @@ public class ProductServiceTests {
     }
 
     @Test
-    @Order(4)
     public void integrationTestProductRepositoryUpdate() {
         //Arrange
         Product product = new Product();
@@ -91,7 +83,6 @@ public class ProductServiceTests {
     }
 
     @Test
-    @Order(5)
     public void integrationTestProductRepositoryDeleteProductById() {
         //Arrange
         Product product = new Product();
