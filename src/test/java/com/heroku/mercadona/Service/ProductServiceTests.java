@@ -22,26 +22,39 @@ public class ProductServiceTests {
     public void integrationTestProductRepositoryAddProduct() {
         //Arrange
         Product product = new Product();
-        product.setDescription("product test");
-        product.setIs_active(true);
+        product.setDescription("test add product");
         product.setLabel("tested product");
-        product.setPrice(50.0);
-        product.setUrl("product test url");
+        product.setPrice(10.0);
         //Act
         productService.saveProduct(product);
+        Product productAdded = productService.getProductById(productService.getLastInsertedProductId());
         //Assert
-        Assertions.assertNotNull(product, "Product should not be null");
-        Assertions.assertTrue(product.getId() > 0, "Product id should be greater than 0");
+        Assertions.assertNotNull(productAdded, "Product should not be null");
+        Assertions.assertEquals(productAdded.getDescription(), "test add product");
+        productService.deleteProductById(productAdded.getId());
     }
 
     @Test
     @Order(2)
     public void integrationTestProductRepositoryGetProductById() {
         //Arrange
+        Product product1 = new Product();
+        product1.setDescription("test get product by id 1");
+        product1.setLabel("product1");
+        product1.setPrice(20.0);
+        Product product2 = new Product();
+        product2.setDescription("test get product by id 2");
+        product2.setLabel("product2");
+        product2.setPrice(30.0);
         //Act
-        Product product = productService.getProductById(productService.getLastInsertedProductId());
+        productService.saveProduct(product1);
+        Integer firstProductId = productService.getLastInsertedProductId();
+        productService.saveProduct(product2);
+        Product productAdded = productService.getProductById(firstProductId + 1);
         //Assert
-        Assertions.assertNotNull(product, "Product should not be null");
+        Assertions.assertEquals(productAdded.getLabel(), "product2");
+        productService.deleteProductById(firstProductId);
+        productService.deleteProductById(firstProductId + 1);
     }
 
     @Test
@@ -59,22 +72,33 @@ public class ProductServiceTests {
     @Order(4)
     public void integrationTestProductRepositoryUpdate() {
         //Arrange
-        int id = productService.getLastInsertedProductId();
-        Product product = productService.getProductById(id);
-        String expected = "updated description";
-        product.setDescription(expected);
-        //Act
+        Product product = new Product();
+        product.setDescription("test update product");
+        product.setLabel("tested product");
+        product.setPrice(40.0);
         productService.saveProduct(product);
+        int id = productService.getLastInsertedProductId();
+        Product productAdded = productService.getProductById(id);
+        String expected = "updated description";
+        productAdded.setDescription(expected);
+        //Act
+        productService.saveProduct(productAdded);
         Product updatedProduct = productService.getProductById(id);
         String actual = updatedProduct.getDescription();
         //Assert
         Assertions.assertEquals(expected, actual);
+        productService.deleteProductById(id);
     }
 
     @Test
     @Order(5)
     public void integrationTestProductRepositoryDeleteProductById() {
         //Arrange
+        Product product = new Product();
+        product.setDescription("test delete product");
+        product.setLabel("tested product");
+        product.setPrice(50.0);
+        productService.saveProduct(product);
         int id = productService.getLastInsertedProductId();
         //Act
         productService.deleteProductById(id);
