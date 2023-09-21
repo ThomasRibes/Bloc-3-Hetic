@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -26,18 +28,19 @@ public class Discount {
     @NotNull(message = "Rate is compulsory")
     @Positive(message = "Only positive rate are allowed")
     @Digits(integer = 3, fraction = 0, message = "Rate should have 1 to 3 digits and not fractional")
-    @Pattern(regexp = "^[0-9]+$", message = "Rate can only contains digits")
+    @Min(1)
+    @Max(99)
     @Column(nullable = false, length = 3)
     private Integer rate;
 
     @NotNull(message = "Start date is compulsory")
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
     @NotNull(message = "End date is compulsory")
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     @Column(nullable = false)
