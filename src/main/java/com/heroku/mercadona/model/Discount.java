@@ -28,8 +28,8 @@ public class Discount {
     @NotNull(message = "Rate is compulsory")
     @Positive(message = "Only positive rate are allowed")
     @Digits(integer = 3, fraction = 0, message = "Rate should have 1 to 3 digits and not fractional")
-    @Min(1)
-    @Max(99)
+    @Min(value = 1, message = "Minimum rate is 1")
+    @Max(value = 99, message ="Maximum rate is 99")
     @Column(nullable = false, length = 3)
     private Integer rate;
 

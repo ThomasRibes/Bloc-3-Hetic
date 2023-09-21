@@ -37,7 +37,7 @@ public class DiscountController {
     }
 
     @PostMapping("/admin/product/{id}/discount/add")
-    public String addDiscount(@Valid @PathVariable("id") Integer id, Discount discount, BindingResult result, Model model) {
+    public String addDiscount(@PathVariable("id") Integer id,@Valid Discount discount, BindingResult result, Model model) {
         if (result.hasErrors()) {
             Product product = new Product();
             product = this.productService.getProductById(id);
