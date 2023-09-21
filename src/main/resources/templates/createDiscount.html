@@ -80,7 +80,7 @@
             <table class="table table-bordered shadow-lg mt-5 table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Rate</th>
+                        <th scope="col">Rate %</th>
                         <th scope="col">Start date</th>
                         <th scope="col">End date</th>
                         <th scope="col">Is active</th>
@@ -94,9 +94,9 @@
                         <td th:text = "${discount.endDate}"></td>
                         <td th:text = "${discount.is_active}"></td>
                         <td class="col-lg-4" >
-                            <a th:href = "#" class="btn btn-success mb-3">Desactivate discount</a>
-                            <a th:href = "#" class="btn btn-warning mb-3">Update discount</a>
-                            <a th:href = "#" class="btn btn-danger mb-3">Delete discount</a>
+                            <a th:href = "@{/catalog}" class="btn btn-success mb-3">Desactivate discount</a>
+                            <a th:href = "@{/catalog}" class="btn btn-warning mb-3">Update discount</a>
+                            <a th:href = "@{/catalog}" class="btn btn-danger mb-3">Delete discount</a>
                         </td>
 
                     </tr>

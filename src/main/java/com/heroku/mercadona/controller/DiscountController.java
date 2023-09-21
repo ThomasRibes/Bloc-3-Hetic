@@ -4,7 +4,6 @@ import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -48,10 +47,16 @@ public class DiscountController {
             return "createDiscount";
         }
         Product product = this.productService.getProductById(id);
-        List<Discount> discountList = new ArrayList<>();
-        discountList.add(discount);
-        product.setDiscounts(discountList);        
+        List<Discount> productDiscountList = product.getDiscounts();
+        productDiscountList.add(discount);
+        product.setDiscounts(productDiscountList);        
         this.productService.saveProduct(product);
         return "redirect:/admin";
     }
+    
+    //getbyid
+    
+    //update
+    
+    //delete
 }
