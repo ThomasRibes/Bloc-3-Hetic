@@ -25,7 +25,7 @@ public class ProductServiceTests {
         Product productAdded = productService.getProductById(productService.getLastInsertedProductId());
         //Assert
         Assertions.assertNotNull(productAdded, "Product should not be null");
-        Assertions.assertEquals(productAdded.getDescription(), "test add product");
+        Assertions.assertEquals("test add product",productAdded.getDescription());
         productService.deleteProductById(productAdded.getId());
     }
 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Mercadona - ADMIN</title>
+        <meta charset="UTF-8" ></meta>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
+        <meta name="description" content="Mercadona retail, get all you want"></meta>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">Mercadona - ADMIN</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/catalog">Catalog <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid text-center mt-5">
+            <h2 class="mt-5">Product informations</h2>
+            <table class="table table-bordered shadow-lg mt-5 table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Label</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price (€)</th>
+                        <th scope="col">Is active</th>
+                        <th scope="col">Picture url</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text = "${product.label}"></td>
+                        <td th:text = "${product.description}"></td>
+                        <td th:text = "${product.category.label}"></td>
+                        <td th:text = "${product.price}" ></td>
+                        <td th:text = "${product.is_active}"></td>
+                        <td class="col-lg-3" th:text = "${product.url}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="container">
+                <h2 class="mt-5">Add a discount</h2>
+                <form class="mt-5" th:action="@{/admin/product/{id}/discount/add(id=${product.id})}" th:object="${discount}" method="post">
+                    <div class="form-group">
+                        <label for="rate">Product rate %</label>
+                        <input th:field="*{rate}" type="number" class="form-control" id="rate" pattern="\d+" min="1" max="99" placeholder="Type the discount rate here (min = 1 , max = 99)" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('rate')}" th:errors="*{rate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start date</label>
+                        <input th:field="*{startDate}" type="date" class="form-control" id="startDate" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End date</label>
+                        <input th:field="*{endDate}" type="date" class="form-control" id="endDate" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="is_active">Is active</label>
+                        <input th:field="*{is_active}" type="checkbox" class="form-control" id="is_active" >
+                            <span class="text-danger" th:if="${#fields.hasErrors('is_active')}" th:errors="*{is_active}" >Error</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add this discount</button>
+                </form>
+            </div>
+
+            <h2 class="mt-5">Discount list</h2> 
+            <table class="table table-bordered shadow-lg mt-5 table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Rate</th>
+                        <th scope="col">Start date</th>
+                        <th scope="col">End date</th>
+                        <th scope="col">Is active</th>
+                        <th scope="col" colspan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each = "discount : ${productDiscountList}">
+                        <td th:text = "${discount.rate}"></td>
+                        <td th:text = "${discount.startDate}"></td>
+                        <td th:text = "${discount.endDate}"></td>
+                        <td th:text = "${discount.is_active}"></td>
+                        <td class="col-lg-4" >
+                            <a th:href = "#" class="btn btn-success mb-3">Desactivate discount</a>
+                            <a th:href = "#" class="btn btn-warning mb-3">Update discount</a>
+                            <a th:href = "#" class="btn btn-danger mb-3">Delete discount</a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>

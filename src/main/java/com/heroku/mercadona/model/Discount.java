@@ -32,12 +32,12 @@ public class Discount {
 
     @NotNull(message = "Start date is compulsory")
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date startDate;
 
     @NotNull(message = "End date is compulsory")
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
 
     @Column(nullable = false)
