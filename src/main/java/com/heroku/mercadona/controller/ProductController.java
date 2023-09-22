@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ProductController {
 
-    private ProductService productService;
-    private CategoryService categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
 
     public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;

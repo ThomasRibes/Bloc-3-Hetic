@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class DiscountController {
 
-    private DiscountService discountService;
-    private ProductService productService;
+    private final DiscountService discountService;
+    private final ProductService productService;
 
     public DiscountController(ProductService productService, DiscountService discountService) {
         this.productService = productService;
@@ -27,8 +27,7 @@ public class DiscountController {
     @GetMapping("/admin/product/{id}/discount/new")
     public String createDiscountForm(@PathVariable("id") Integer id, Model model) {
         Discount discount = new Discount();
-        Product product = new Product();
-        product = this.productService.getProductById(id);
+        Product product = this.productService.getProductById(id);
         List<Discount> productDiscountList = product.getDiscounts();
         model.addAttribute("productDiscountList", productDiscountList);
         model.addAttribute("product", product);
@@ -39,8 +38,7 @@ public class DiscountController {
     @PostMapping("/admin/product/{id}/discount/add")
     public String addDiscount(@PathVariable("id") Integer id,@Valid Discount discount, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            Product product = new Product();
-            product = this.productService.getProductById(id);
+            Product product = this.productService.getProductById(id);
             List<Discount> productDiscountList = product.getDiscounts();
             model.addAttribute("productDiscountList", productDiscountList);
             model.addAttribute("product", product);
