@@ -32,29 +32,30 @@ public class DiscountController {
         model.addAttribute("productDiscountList", productDiscountList);
         model.addAttribute("product", product);
         model.addAttribute("discount", discount);
-        return "createDiscount";
+        return "manageDiscount";
     }
 
     @PostMapping("/admin/product/{id}/discount/add")
-    public String addDiscount(@PathVariable("id") Integer id,@Valid Discount discount, BindingResult result, Model model) {
+    public String addDiscount(@PathVariable("id") Integer id, @Valid Discount discount, BindingResult result, Model model) {
         if (result.hasErrors()) {
             Product product = this.productService.getProductById(id);
             List<Discount> productDiscountList = product.getDiscounts();
             model.addAttribute("productDiscountList", productDiscountList);
             model.addAttribute("product", product);
-            return "createDiscount";
+            return "manageDiscount";
         }
         Product product = this.productService.getProductById(id);
         List<Discount> productDiscountList = product.getDiscounts();
         productDiscountList.add(discount);
-        product.setDiscounts(productDiscountList);        
+        product.setDiscounts(productDiscountList);
         this.productService.saveProduct(product);
-        return "redirect:/admin";
+        return "redirect:/admin/product/{id}/discount/new";
     }
     
-    //getbyid
-    
-    //update
-    
     //delete
+
+    //activate
+    
+    //disactivate
+    
 }

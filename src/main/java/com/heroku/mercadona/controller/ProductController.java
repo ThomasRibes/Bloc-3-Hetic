@@ -81,7 +81,6 @@ public class ProductController {
 
     @GetMapping("admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, Model model) {
-        this.productService.getProductById(id);
         this.productService.deleteProductById(id);
         return "redirect:/admin";
     }

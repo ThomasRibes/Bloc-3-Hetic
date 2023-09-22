@@ -5,14 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 import jakarta.validation.constraints.Positive;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +27,7 @@ public class Discount {
     @Positive(message = "Only positive rate are allowed")
     @Digits(integer = 3, fraction = 0, message = "Rate should have 1 to 3 digits and not fractional")
     @Min(value = 1, message = "Minimum rate is 1")
-    @Max(value = 99, message ="Maximum rate is 99")
+    @Max(value = 99, message = "Maximum rate is 99")
     @Column(nullable = false, length = 3)
     private Integer rate;
 
@@ -45,8 +44,8 @@ public class Discount {
     @Column(nullable = false)
     private boolean is_active;
 
-    @ManyToMany(mappedBy = "discounts")
-    private List<Product> products;
+    @ManyToOne
+    private Product product;
 
     public Integer getId() {
         return id;
@@ -88,12 +87,12 @@ public class Discount {
         this.is_active = is_active;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
