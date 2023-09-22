@@ -46,7 +46,7 @@ public class ProductServiceTests {
         productService.saveProduct(product2);
         Product productAdded = productService.getProductById(firstProductId + 1);
         //Assert
-        Assertions.assertEquals(productAdded.getLabel(), "product2");
+        Assertions.assertEquals("product2",productAdded.getLabel());
         productService.deleteProductById(firstProductId);
         productService.deleteProductById(firstProductId + 1);
     }

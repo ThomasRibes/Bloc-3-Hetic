@@ -13,7 +13,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import org.springframework.format.annotation.DateTimeFormat;
 
