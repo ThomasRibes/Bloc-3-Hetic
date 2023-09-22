@@ -33,13 +33,12 @@
                         <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
                         <div class="card-body">
                             <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                            <h4 class="card-title">[[${product.price}]] €</h4>
+                                <h4 class="card-title">[[${product.price}]] €</h4>
                             <p class="card-text">[[${product.description}]]</p>
                         </div>
                     </div>
+                </th:block>
             </div>
-            </th:block>
         </div>
-
     </body>
 </html>
