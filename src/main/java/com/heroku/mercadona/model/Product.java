@@ -63,7 +63,7 @@ public class Product {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     private List<Discount> discounts;
 
     public Integer getId() {

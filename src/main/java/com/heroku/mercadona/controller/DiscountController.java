@@ -45,19 +45,17 @@ public class DiscountController {
             return "manageDiscount";
         }
         Product product = this.productService.getProductById(id);
-        List<Discount> productDiscountList = product.getDiscounts();
-        productDiscountList.add(discount);
-        product.setDiscounts(productDiscountList);
-        this.productService.saveProduct(product);
+        discount.setProduct(product);
+        this.discountService.saveDiscount(discount);
         return "redirect:/admin/product/{id}/discount/new";
     }
 
-    //delete
-    @GetMapping("/admin/product/discount/delete/{id}")
-    public String deleteDiscount(@PathVariable("id") Integer id, Integer idDiscount, Model model) {
+    @GetMapping("/admin/product/{idProduct}/discount/delete/{id}")
+    public String deleteDiscount(@PathVariable("id") Integer idProduct,@PathVariable("id") Integer id, Integer idDiscount, Model model) {
         this.discountService.deleteDiscountById(id);
-        return "redirect:/admin";
+        return "redirect:/admin/product/{idProduct}/discount/new";
     }
+    
     //activate
 
     //disactivate

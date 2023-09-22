@@ -95,7 +95,7 @@
                         <td th:text = "${discount.is_active}"></td>
                         <td class="col-lg-4" >
                             <a th:href = "@{/catalog}" class="btn btn-success mb-3">Desactivate discount</a>
-                            <a th:href = "@{/admin/product/{id}/discount/delete/{idDiscount}(id=${product.id}, idDiscount=${discount.id})}" class="btn btn-danger mb-3">Delete discount</a>
+                            <a th:href = "@{/admin/product/{idProduct}/discount/delete/{id}(idProduct=${product.id}, id=${discount.id})}" class="btn btn-danger mb-3">Delete discount</a>
                         </td>
 
                     </tr>
