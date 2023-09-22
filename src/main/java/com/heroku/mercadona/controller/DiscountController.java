@@ -51,11 +51,14 @@ public class DiscountController {
         this.productService.saveProduct(product);
         return "redirect:/admin/product/{id}/discount/new";
     }
-    
-    //delete
 
+    //delete
+    @GetMapping("/admin/product/discount/delete/{id}")
+    public String deleteDiscount(@PathVariable("id") Integer id, Integer idDiscount, Model model) {
+        this.discountService.deleteDiscountById(id);
+        return "redirect:/admin";
+    }
     //activate
-    
+
     //disactivate
-    
 }

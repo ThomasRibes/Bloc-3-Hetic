@@ -19,4 +19,9 @@ public class DiscountServiceImpl implements DiscountService {
         this.discountRepository.save(discount);
     }
 
+    @Override
+    public void deleteDiscountById(Integer id) {
+        this.discountRepository.deleteById(id);
+    }
+
 }
