@@ -60,7 +60,7 @@
                                 <a th:href = "@{/admin/product/activate/{id}(id=${product.id})}" class="btn btn-success mb-3">Activate product</a>
                             </th:block>
                             <th:block th:if="${product.is_active == true}" >
-                                <a th:href = "@{/admin/product/activate/{id}(id=${product.id})}" class="btn btn-warning mb-3">Disactivate product</a>
+                                <a th:href = "@{/admin/product/disactivate/{id}(id=${product.id})}" class="btn btn-warning mb-3">Disactivate product</a>
                             </th:block>
                             <a th:href = "@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-primary mb-3">Update product</a>
                             <a th:href = "@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger mb-3">Delete product</a>

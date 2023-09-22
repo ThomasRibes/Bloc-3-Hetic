@@ -1,8 +1,10 @@
 package com.heroku.mercadona.controller;
 
 import com.heroku.mercadona.model.Category;
+import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.CategoryService;
+import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
 import java.util.List;
 import javax.validation.Valid;
@@ -18,16 +20,20 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final DiscountService discountService;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService, DiscountService discountService) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.discountService = discountService;
     }
 
     @GetMapping("/catalog")
     public String showProductList(Model model) {
         List<Product> listProducts = productService.getAllProducts();
+        List<Discount> listDiscounts = discountService.getAllDiscounts();
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listDiscounts", listDiscounts);
         return "showProducts";
     }
 
@@ -82,6 +88,24 @@ public class ProductController {
     @GetMapping("admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, Model model) {
         this.productService.deleteProductById(id);
+        return "redirect:/admin";
+    }
+    
+        //activate
+    @GetMapping("/admin/product/activate/{id}")
+    public String activateProduct(@PathVariable("id") Integer id, Model model) {
+        Product product = this.productService.getProductById(id);
+        product.setIs_active(true);
+        this.productService.saveProduct(product);
+        return "redirect:/admin";
+    }
+
+    //disactivate
+    @GetMapping("/admin/product/disactivate/{id}")
+    public String disactivateProduct(@PathVariable("id") Integer id, Model model) {
+        Product product = this.productService.getProductById(id);
+        product.setIs_active(false);
+        this.productService.saveProduct(product);
         return "redirect:/admin";
     }
 
