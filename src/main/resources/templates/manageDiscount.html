@@ -99,8 +99,7 @@
                             </th:block>
                             <th:block th:if="${discount.is_active == true}" >
                                 <a th:href = "@{/admin/product/{idProduct}/discount/disactivate/{id}(idProduct=${product.id}, id=${discount.id})}" class="btn btn-warning mb-3">Disactivate discount</a>
-                            </th:block>    
-                            <a th:href = "@{/admin/product/{idProduct}/discount/delete/{id}(idProduct=${product.id}, id=${discount.id})}" class="btn btn-danger mb-3">Delete discount</a>
+                            </th:block>
                         </td>
 
                     </tr>

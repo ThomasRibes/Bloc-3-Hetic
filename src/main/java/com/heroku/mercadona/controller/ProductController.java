@@ -90,8 +90,8 @@ public class ProductController {
         this.productService.deleteProductById(id);
         return "redirect:/admin";
     }
-    
-        //activate
+
+    //activate
     @GetMapping("/admin/product/activate/{id}")
     public String activateProduct(@PathVariable("id") Integer id, Model model) {
         Product product = this.productService.getProductById(id);

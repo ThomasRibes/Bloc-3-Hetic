@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -63,8 +64,8 @@ public class Product {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Discount> discounts;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private List<Discount> discounts = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -136,6 +137,16 @@ public class Product {
 
     public void setDiscounts(List<Discount> discounts) {
         this.discounts = discounts;
+    }
+    
+    public void addDiscount(Discount discount){
+        discounts.add(discount);
+        discount.setProduct(this);
+    }
+    
+    public void removeDiscount(Discount discount){
+        discounts.remove(discount);
+        discount.setProduct(null);        
     }
 
     @Override

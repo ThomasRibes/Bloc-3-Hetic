@@ -45,18 +45,11 @@ public class DiscountController {
             return "manageDiscount";
         }
         Product product = this.productService.getProductById(id);
-        discount.setProduct(product);
-        this.discountService.saveDiscount(discount);
+        product.addDiscount(discount);
+        this.productService.saveProduct(product);
         return "redirect:/admin/product/{id}/discount/new";
     }
 
-    @GetMapping("/admin/product/{idProduct}/discount/delete/{id}")
-    public String deleteDiscount(@PathVariable("idProduct") Integer idProduct, @PathVariable("id") Integer id, Model model) {
-        this.discountService.deleteDiscountById(id);
-        return "redirect:/admin/product/{idProduct}/discount/new";
-    }
-
-    //activate
     @GetMapping("/admin/product/{idProduct}/discount/activate/{id}")
     public String activateDiscount(@PathVariable("idProduct") Integer idProduct, @PathVariable("id") Integer id, Model model) {
         Discount discount = this.discountService.getDiscountById(id);
@@ -65,7 +58,6 @@ public class DiscountController {
         return "redirect:/admin/product/{idProduct}/discount/new";
     }
 
-    //disactivate
     @GetMapping("/admin/product/{idProduct}/discount/disactivate/{id}")
     public String disactivateDiscount(@PathVariable("idProduct") Integer idProduct, @PathVariable("id") Integer id, Model model) {
         Discount discount = this.discountService.getDiscountById(id);
