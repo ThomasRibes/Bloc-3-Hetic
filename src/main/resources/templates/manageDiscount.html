@@ -92,8 +92,8 @@
                 <tbody>
                     <tr th:each = "discount : ${productDiscountList}">
                         <td th:text = "${discount.rate}"></td>
-                        <td th:text = "${discount.startDate}"></td>
-                        <td th:text = "${discount.endDate}"></td>
+                        <td th:text = "${#dates.format(discount.startDate, 'dd MMM yyyy')}"></td>
+                        <td th:text = "${#dates.format(discount.endDate, 'dd MMM yyyy')}"></td>
                         <td th:text = "${discount.is_active}"></td>
                         <td class="col-lg-4" >
                             <th:block th:if="${discount.is_active == false}" >
