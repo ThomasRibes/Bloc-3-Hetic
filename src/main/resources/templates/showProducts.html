@@ -7,6 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
         <meta name="description" content="Mercadona retail, get all you want"></meta>
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" ></link>
+        <script type="text/javascript" th:src="@{/js/catalog.js}" defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -33,7 +35,8 @@
                         <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
                         <div class="card-body">
                             <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                                <h4 class="card-title">[[${product.price}]] €</h4>
+                            <h5 class="card-title">Price [[${product.price}]] €</h5>
+                            <h4 class="card-title discounted-price">Discount price : [[${product.price}]] €</h4>
                             <p class="card-text">[[${product.description}]]</p>
                         </div>
                     </div>

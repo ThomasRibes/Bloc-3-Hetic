@@ -27,7 +27,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @NotNull(message = "Label is compulsory")
     @Size(min = 3, max = 50, message = "Label should be a minimum of 3 characters and a maximum of 50")
     @Pattern(regexp = "^[A-Za-z0-9\\s^'!.?:()_-]*$", message = "Label has invalid characters, only apostrophes, alphanumerics and _-.!?:() are allowed")
@@ -47,10 +46,16 @@ public class Product {
     @Column(nullable = false, length = 8)
     private Double price;
 
+    @Positive(message = "Discount price can only be positive")
+    @DecimalMax(value = "10000.0", message = "Maximum discount price is 10000.00€")
+    @DecimalMin(value = "0.01", message = "Minimum discount price is 0.01€")
+    @Column(length = 8)
+    private Double discountPrice = null;
+
 //  To implements when implementing urls 
 //    @NotNull(message = "Url is compulsory")
 //    @Size(min = 10, max = 500, message = "URL should be a minimum of 10 characters and a maximum of 500")
-    @Column(/*nullable = false,*/ length = 500)
+    @Column(/*nullable = false,*/length = 500)
     private String url;
 
     @Column(nullable = false)
@@ -64,7 +69,7 @@ public class Product {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Discount> discounts = new ArrayList<>();
 
     public Integer getId() {
@@ -97,6 +102,14 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public String getUrl() {
@@ -138,15 +151,15 @@ public class Product {
     public void setDiscounts(List<Discount> discounts) {
         this.discounts = discounts;
     }
-    
-    public void addDiscount(Discount discount){
+
+    public void addDiscount(Discount discount) {
         discounts.add(discount);
         discount.setProduct(this);
     }
-    
-    public void removeDiscount(Discount discount){
+
+    public void removeDiscount(Discount discount) {
         discounts.remove(discount);
-        discount.setProduct(null);        
+        discount.setProduct(null);
     }
 
     @Override
