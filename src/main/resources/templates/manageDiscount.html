@@ -72,7 +72,7 @@
                         <input th:field="*{is_active}" type="checkbox" class="form-control" id="is_active" >
                             <span class="text-danger" th:if="${#fields.hasErrors('is_active')}" th:errors="*{is_active}" >Error</span>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add this discount</button>
+                        <button type="submit" class="btn btn-primary">Add this discount</button>
                 </form>
             </div>
 
@@ -100,6 +100,7 @@
                             <th:block th:if="${discount.is_active == true}" >
                                 <a th:href = "@{/admin/product/{idProduct}/discount/disactivate/{id}(idProduct=${product.id}, id=${discount.id})}" class="btn btn-warning mb-3">Disactivate discount</a>
                             </th:block>
+                            <a th:href = "@{/admin/product/{idProduct}/discount/edit/{id}(idProduct=${product.id}, id=${discount.id})}" class="btn btn-primary mb-3">Update discount</a>
                         </td>
 
                     </tr>
