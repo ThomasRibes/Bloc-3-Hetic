@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
         <meta name="description" content="Mercadona retail, get all you want"></meta>
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" ></link>
+        <script type="text/javascript" th:src="@{/js/actions.js}" defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -59,12 +61,12 @@
                     </div>
                     <div class="form-group">
                         <label for="startDate">Start date</label>
-                        <input th:field="*{startDate}" type="date" class="form-control" id="startDate" required>
+                        <input th:field="*{startDate}" type="date" class="form-control" id="startDate" name="startDate" required>
                             <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" >Error</span>
                     </div>
                     <div class="form-group">
                         <label for="endDate">End date</label>
-                        <input th:field="*{endDate}" type="date" class="form-control" id="endDate" required>
+                        <input th:field="*{endDate}" type="date" class="form-control" id="endDate" name="endDate" required>
                             <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" >Error</span>
                     </div>
                     <div class="form-group">
