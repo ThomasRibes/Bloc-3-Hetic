@@ -35,8 +35,10 @@
                         <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
                         <div class="card-body">
                             <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                            <h5 class="card-title">Price [[${product.price}]] €</h5>
-                            <h4 class="card-title discounted-price">Discount price : [[${product.price}]] €</h4>
+                            <th:block th:if="${product.discountPrice != null}">
+                            <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
+                            </th:block>
+                            <h5 class="card-title" th:class="product.discountPrice == null ? 'card-title line-through' : 'card-title'">Price [[${product.price}]]€</h5>
                             <p class="card-text">[[${product.description}]]</p>
                         </div>
                     </div>
