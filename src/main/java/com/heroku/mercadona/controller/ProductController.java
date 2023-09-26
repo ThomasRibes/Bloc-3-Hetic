@@ -6,7 +6,6 @@ import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
-import jakarta.persistence.EntityManager;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
