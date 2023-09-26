@@ -3,6 +3,7 @@ package com.heroku.mercadona.service.impl;
 import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.repository.DiscountRepository;
 import com.heroku.mercadona.service.DiscountService;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,25 @@ public class DiscountServiceImpl implements DiscountService {
         }
         return discount;
     }
-    
+
     @Override
-    public List<Discount> getAllDiscounts(){
-         return (List<Discount>) discountRepository.findAll();
+    public List<Discount> getAllDiscounts() {
+        return (List<Discount>) discountRepository.findAll();
+    }
+
+    @Override
+    public Discount getCurrentActivatedBestDiscount(List<Discount> discountList) {
+        long date = new Date().getTime();
+        Discount bestDiscount = new Discount();
+        bestDiscount.setRate(0);
+        for (Discount discount : discountList) {
+            if (discount.getStartDate().getTime() <= date && discount.getEndDate().getTime() >= date && discount.getIs_active() == true) {
+                if (discount.getRate() > bestDiscount.getRate()) {
+                    bestDiscount = discount;
+                }
+            }
+        }
+        return bestDiscount;
     }
 
 }

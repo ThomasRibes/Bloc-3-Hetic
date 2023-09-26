@@ -9,4 +9,5 @@ public interface DiscountService {
     void deleteDiscountById(Integer id);
     Discount getDiscountById(Integer id);
     List<Discount> getAllDiscounts();
+    Discount getCurrentActivatedBestDiscount(List<Discount> discountList);
 }

@@ -6,6 +6,7 @@ import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -21,19 +22,29 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final DiscountService discountService;
+    private final EntityManager entityManager;
 
-    public ProductController(ProductService productService, CategoryService categoryService, DiscountService discountService) {
+    public ProductController(ProductService productService, CategoryService categoryService, DiscountService discountService, EntityManager entityManager) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.discountService = discountService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping("/catalog")
-    public String showProductList(Model model) {
+    public String showCurrentProductList(Model model) {
         List<Product> listProducts = productService.getAllProducts();
-        List<Discount> listDiscounts = discountService.getAllDiscounts();
-        model.addAttribute("listProducts", listProducts);
-        model.addAttribute("listDiscounts", listDiscounts);
+        for (Product product : listProducts) {
+             product.setDiscountPrice(0.00);
+            List<Discount> discountList = product.getDiscounts();
+            if(discountList != null && !discountList.isEmpty()){
+                Discount bestDiscount = this.discountService.getCurrentActivatedBestDiscount(discountList);
+                product.setDiscountPrice(product.getPrice()-(product.getPrice()*bestDiscount.getRate())/100);
+                this.productService.saveProduct(product);
+            }                
+        }
+        List<Product> currentProductList = productService.getAllProducts();
+        model.addAttribute("currentProductList", currentProductList);
         return "showProducts";
     }
 

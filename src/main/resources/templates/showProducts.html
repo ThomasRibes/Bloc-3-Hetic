@@ -27,15 +27,15 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid text-center m-5">
+        <div class="container-fluid text-center mt-5">
             <h2>Our products</h2>
-            <div class="row">
-                <th:block th:each="product: ${listProducts}">
+            <div class="d-flex mt-5 justify-content-center mt-5">
+                <th:block th:each="product: ${currentProductList}">
                     <div class="card rounded shadow col-sm-2 m-3" style="width: 18rem;">
                         <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
                         <div class="card-body">
                             <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
-                            <th:block th:if="${product.discountPrice != null}">
+                            <th:block th:if="${product.discountPrice != product.price}">
                             <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
                             </th:block>
                             <h5 class="card-title" th:class="product.discountPrice == null ? 'card-title line-through' : 'card-title'">Price [[${product.price}]]€</h5>
