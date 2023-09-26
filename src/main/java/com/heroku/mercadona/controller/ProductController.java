@@ -22,13 +22,11 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final DiscountService discountService;
-    private final EntityManager entityManager;
 
-    public ProductController(ProductService productService, CategoryService categoryService, DiscountService discountService, EntityManager entityManager) {
+    public ProductController(ProductService productService, CategoryService categoryService, DiscountService discountService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.discountService = discountService;
-        this.entityManager = entityManager;
     }
 
     @GetMapping("/catalog")
