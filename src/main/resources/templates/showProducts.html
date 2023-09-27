@@ -29,6 +29,15 @@
             </div>
         </nav>
         <div class="container-fluid text-center mt-5">
+            <form class="mt-5 col-5 m-auto" action="" th:object="${category}" method="get">
+                <div class="d-flex flex-row justify-content-center form-group mb-5">
+                    <select field="*{category}" class="col-3 form-control mr-2" id="category" required>
+                        <option value="All">All</option>
+                        <option th:each="category : ${listCategories}" th:value="${category.label}" th:text="${category.label}"></option>
+                    </select>
+                    <button type="submit" class="col-3 btn btn-success">Apply category filter</button>
+                </div>
+            </form>
             <h2>Our products</h2>
             <div class="d-flex mt-5 justify-content-center mt-5">
                 <th:block th:each="product: ${currentProductList}">
@@ -37,7 +46,7 @@
                         <div class="card-body">
                             <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
                             <th:block th:if="${product.discountPrice != product.price}">
-                            <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
+                                <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
                             </th:block>
                             <h5 class="card-title" th:class="product.discountPrice == null ? 'card-title line-through' : 'card-title'">Price [[${product.price}]]€</h5>
                             <p class="card-text">[[${product.description}]]</p>

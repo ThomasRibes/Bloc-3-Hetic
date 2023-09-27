@@ -42,6 +42,8 @@ public class ProductController {
         }
         List<Product> currentProductList = productService.getAllProducts();
         model.addAttribute("currentProductList", currentProductList);
+        List<Category> listCategories = categoryService.getAllCategories();
+        model.addAttribute("listCategories", listCategories);
         return "showProducts";
     }
 
@@ -55,8 +57,8 @@ public class ProductController {
     @GetMapping("/admin/product/new")
     public String createProductForm(Model model) {
         Product product = new Product();
-        List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("product", product);
+        List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("listCategories", listCategories);
         return "createProduct";
     }
