@@ -6,6 +6,8 @@ import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -31,15 +33,21 @@ public class ProductController {
     @GetMapping("/catalog")
     public String showCurrentProductList(Model model) {
         List<Product> listProducts = productService.getAllProducts();
+        //A: to put in ProductServiceImpl:
         for (Product product : listProducts) {
              product.setDiscountPrice(0.00);
             List<Discount> discountList = product.getDiscounts();
             if(discountList != null && !discountList.isEmpty()){
                 Discount bestDiscount = this.discountService.getCurrentActivatedBestDiscount(discountList);
-                product.setDiscountPrice(product.getPrice()-(product.getPrice()*bestDiscount.getRate())/100);
+                //B: to put in ProductServiceImpl:
+                Double rawDiscountPrice = product.getPrice()-(product.getPrice()*bestDiscount.getRate())/100;
+                Double discountPrice = (Math.ceil(rawDiscountPrice*100))/100;
+                //B: end
+                product.setDiscountPrice(discountPrice);
                 this.productService.saveProduct(product);
             }                
         }
+        //A: end
         List<Product> currentProductList = productService.getAllProducts();
         model.addAttribute("currentProductList", currentProductList);
         List<Category> listCategories = categoryService.getAllCategories();
