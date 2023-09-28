@@ -1,8 +1,14 @@
 package com.heroku.mercadona.service.impl;
 
+import com.heroku.mercadona.model.Category;
+import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.repository.ProductRepository;
+import com.heroku.mercadona.service.CategoryService;
+import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,14 +18,48 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
+    private final DiscountService discountService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    @PersistenceContext
+    private EntityManager manager;
+
+    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService, DiscountService discountService) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
+        this.discountService = discountService;
     }
 
     @Override
     public List<Product> getAllProducts() {
         return (List<Product>) productRepository.findAll();
+    }
+
+    @Override
+    public boolean checkIfParamMatchACategory(Integer categoryId) {
+        Boolean paramMatchCategory = false;
+        List<Category> listOfCategories = categoryService.getAllCategories();
+        if (listOfCategories.stream().anyMatch(c -> c.getLabel().equals(categoryId))) {
+            paramMatchCategory = true;
+        }
+        return paramMatchCategory;
+    }
+
+    @Override
+    public boolean checkIfParamMatchNull(Integer categoryId) {
+        Boolean paramMatchNull = false;
+        if (categoryId == null) {
+            paramMatchNull = true;
+        }
+        return paramMatchNull;
+    }
+
+    @Override
+    public List<Product> getProductListByCategory(Integer categoryId) {
+        List<Product> productListByCategory = manager.createNamedQuery("getProductListByCategory", Product.class)
+                .setParameter(1, categoryId)
+                .getResultList();
+        return productListByCategory;
     }
 
     @Override
@@ -56,4 +96,22 @@ public class ProductServiceImpl implements ProductService {
 
         return lastInsertedProduct.getId();
     }
+
+    @Override
+    public void updateDiscountPrice(List<Product> productList) {
+        for (Product product : productList) {
+            product.setDiscountPrice(0.00);
+            List<Discount> discountList = product.getDiscounts();
+            if (discountList != null && !discountList.isEmpty()) {
+                Discount bestDiscount = this.discountService.getCurrentActivatedBestDiscount(discountList);
+                //B: to put in ProductServiceImpl:
+                Double rawDiscountPrice = product.getPrice() - (product.getPrice() * bestDiscount.getRate()) / 100;
+                Double discountPrice = (Math.ceil(rawDiscountPrice * 100)) / 100;
+                //B: end
+                product.setDiscountPrice(discountPrice);
+                this.saveProduct(product);
+            }
+        }
+    }
+    
 }

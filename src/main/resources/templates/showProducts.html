@@ -8,8 +8,9 @@
         <meta name="description" content="Mercadona retail, get all you want"></meta>
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
         <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" ></link>
-        <script type="text/javascript" th:src="@{/js/catalog.js}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/filters.js}" defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -30,14 +31,13 @@
         </nav>
         <div class="container-fluid text-center mt-5">
             <!--<form class="mt-5 col-5 m-auto" action="" th:object="${category}" method="get">-->
-                <div class="d-flex flex-column align-items-center form-group mb-5">
-                    <label for="category">Filter by category</label>
-                    <select field="*{category}" class="col-3 form-control mr-2" id="category" name="category" required>
-                        <option value="All">All</option>
-                        <option th:each="category : ${listCategories}" th:value="${category.label}" th:text="${category.label}"></option>
-                    </select>
-                    <!--<button type="submit" class="col-3 btn btn-success">Apply category filter</button>-->
-                </div>
+            <div class="d-flex flex-column align-items-center form-group mb-5">
+                <label for="category">Filter by category</label>
+                <select field="*{category}" class="col-3 form-control mr-2" id="category" name="category" required>
+                    <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
+                </select>
+                <!--<button type="submit" class="col-3 btn btn-success">Apply category filter</button>-->
+            </div>
             <!--</form>-->
             <h2>Our products</h2>
             <div class="d-flex mt-5 justify-content-center mt-5">
