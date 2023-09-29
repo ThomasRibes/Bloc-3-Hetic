@@ -39,9 +39,12 @@ public class ProductServiceImpl implements ProductService {
     public boolean checkIfParamMatchACategory(Integer categoryId) {
         Boolean paramMatchCategory = false;
         List<Category> listOfCategories = categoryService.getAllCategories();
-        if (listOfCategories.stream().anyMatch(c -> c.getLabel().equals(categoryId))) {
-            paramMatchCategory = true;
+        for (Category category :listOfCategories){
+            if(category.getId() == categoryId){
+                paramMatchCategory = true;
+            }
         }
+        System.out.println("///////////////////////////////"+paramMatchCategory);
         return paramMatchCategory;
     }
 
@@ -49,6 +52,14 @@ public class ProductServiceImpl implements ProductService {
     public boolean checkIfParamMatchNull(Integer categoryId) {
         Boolean paramMatchNull = false;
         if (categoryId == null) {
+            paramMatchNull = true;
+        }
+        return paramMatchNull;
+    }
+    @Override
+    public boolean checkIfParamMatchZero(Integer categoryId) {
+        Boolean paramMatchNull = false;
+        if (categoryId == 0) {
             paramMatchNull = true;
         }
         return paramMatchNull;

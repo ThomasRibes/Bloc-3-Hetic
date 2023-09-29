@@ -26,24 +26,32 @@ public class ProductController {
     }
 
     @GetMapping("/catalog")
-    public String showCurrentProductList(@RequestParam(required = false) Integer categoryId, Model model) {
-        if (productService.checkIfParamMatchNull(categoryId)) {
+    public String showCurrentProductList(Model model) {
+        List<Category> listCategories = categoryService.getAllCategories();
+        model.addAttribute("listCategories", listCategories);
+        List<Product> listProducts = productService.getAllProducts();
+        productService.updateDiscountPrice(listProducts);
+        List<Product> currentProductList = productService.getAllProducts();
+        model.addAttribute("currentProductList", currentProductList);
+        return "showProducts";
+    }
+
+    @GetMapping("/catalog/filter")
+    public String showCurrentFilteredProductList(@RequestParam(required = false) Integer categoryId, Model model) {        
             List<Product> listProducts = productService.getAllProducts();
             productService.updateDiscountPrice(listProducts);
+            
+        if (productService.checkIfParamMatchNull(categoryId) || productService.checkIfParamMatchZero(categoryId)) {
             List<Product> currentProductList = productService.getAllProducts();
             model.addAttribute("currentProductList", currentProductList);
         }
 
         if (productService.checkIfParamMatchACategory(categoryId)) {
-            List<Product> listProducts = productService.getAllProducts();
-            productService.updateDiscountPrice(listProducts);
             List<Product> currentProductList = productService.getProductListByCategory(categoryId);
             model.addAttribute("currentProductList", currentProductList);
         }
 
-        List<Category> listCategories = categoryService.getAllCategories();
-        model.addAttribute("listCategories", listCategories);
-        return "showProducts";
+        return "frag/filteredProducts :: ourFilteredProducts";
     }
 
     @GetMapping("/admin")

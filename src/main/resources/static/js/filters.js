@@ -1,18 +1,15 @@
 
-// Want to use async/await? Add the `async` keyword to your outer function/method.
 async function getCatalog() {
-    try {
-        const response = await axios.get('/catalog', {
-            params: {
-                category: $('#category option:selected').val()
-            }
-        });
-        console.log("response");
-    } catch (error) {
-        console.error(error);
-    }
-}
 
+    const response = await axios.get('/catalog/filter', {
+        params: {categoryId: $('#category option:selected').val()}})
+            .then(function (html) {
+                document.getElementById("ourFilteredProducts").innerHTML = html.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+}
 
 $(document).ready(function () {
     $("#category").change(function () {
