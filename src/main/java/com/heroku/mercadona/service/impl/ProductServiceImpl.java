@@ -44,7 +44,6 @@ public class ProductServiceImpl implements ProductService {
                 paramMatchCategory = true;
             }
         }
-        System.out.println("///////////////////////////////"+paramMatchCategory);
         return paramMatchCategory;
     }
 
