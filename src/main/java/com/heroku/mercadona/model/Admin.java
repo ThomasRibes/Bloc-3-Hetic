@@ -53,7 +53,7 @@ public class Admin {
 
     @Column(nullable = false)
     private boolean is_active = true;
-
+    
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Product> products;
 

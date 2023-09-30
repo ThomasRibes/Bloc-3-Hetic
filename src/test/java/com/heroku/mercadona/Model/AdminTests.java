@@ -121,7 +121,7 @@ public class AdminTests {
         admin.setName("admin");
         admin.setEmail("admin@admin.fr");
         admin.setPassword("password");
-        admin.setState(AdminState.SUPER_ADMIN);
+        admin.setState(AdminState.PW_REDEFINED);
         admin.setCreated_at(LocalDate.of(2023, Month.JANUARY, 1));
         admin.setIs_active(false);
         String expected = "Admin{id=1, name=admin, email=admin@admin.fr, password=password, state=SUPER_ADMIN, created_at=2023-01-01, is_active=false}";
