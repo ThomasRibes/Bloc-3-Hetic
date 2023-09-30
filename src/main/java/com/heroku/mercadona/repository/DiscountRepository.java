@@ -1,8 +1,8 @@
 package com.heroku.mercadona.repository;
 
 import com.heroku.mercadona.model.Discount;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DiscountRepository extends CrudRepository<Discount, Integer> {
+public interface DiscountRepository extends JpaRepository<Discount, Integer> {
 
 }
