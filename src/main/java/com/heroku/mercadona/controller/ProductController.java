@@ -111,7 +111,7 @@ public class ProductController {
     @GetMapping("/admin/product/activate/{id}")
     public String activateProduct(@PathVariable("id") Integer id, Model model) {
         Product product = this.productService.getProductById(id);
-        product.setIs_active(true);
+        product.set_active(true);
         this.productService.saveProduct(product);
         return "redirect:/admin";
     }
@@ -119,7 +119,7 @@ public class ProductController {
     @GetMapping("/admin/product/disactivate/{id}")
     public String disactivateProduct(@PathVariable("id") Integer id, Model model) {
         Product product = this.productService.getProductById(id);
-        product.setIs_active(false);
+        product.set_active(false);
         this.productService.saveProduct(product);
         return "redirect:/admin";
     }

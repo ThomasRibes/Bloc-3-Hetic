@@ -16,8 +16,16 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "admins")
 public class Admin {
@@ -58,84 +66,5 @@ public class Admin {
     
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Product> products;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public AdminState getState() {
-        return state;
-    }
-
-    public void setState(AdminState state) {
-        this.state = state;
-    }
-
-    public LocalDate getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
-    }
-
-    public boolean getIs_active() {
-        return is_active;
-    }
-
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Admin{");
-        sb.append("id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", email=").append(email);
-        sb.append(", password=").append(password);
-        sb.append(", state=").append(state);
-        sb.append(", created_at=").append(created_at);
-        sb.append(", is_active=").append(is_active);
-        sb.append('}');
-        return sb.toString();
-    }
 
 }

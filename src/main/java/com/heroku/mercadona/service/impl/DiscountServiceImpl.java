@@ -48,7 +48,7 @@ public class DiscountServiceImpl implements DiscountService {
         Discount bestDiscount = new Discount();
         bestDiscount.setRate(0);
         for (Discount discount : discountList) {
-            if (discount.getStartDate().getTime() <= date && discount.getEndDate().getTime() >= date && discount.getIs_active() == true) {
+            if (discount.getStartDate().getTime() <= date && discount.getEndDate().getTime() >= date && discount.is_active() == true) {
                 if (discount.getRate() > bestDiscount.getRate()) {
                     bestDiscount = discount;
                 }

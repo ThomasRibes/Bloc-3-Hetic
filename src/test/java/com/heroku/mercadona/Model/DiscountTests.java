@@ -69,8 +69,8 @@ public class DiscountTests {
         //Arrange
         Discount discount = new Discount();
         //Act
-        discount.setIs_active(false);
-        Boolean actual = discount.getIs_active();
+        discount.set_active(false);
+        Boolean actual = discount.is_active();
         //Assert
         Assertions.assertFalse(actual);
     }
@@ -83,7 +83,7 @@ public class DiscountTests {
         discount.setRate(50);
         discount.setStartDate(new Date(0));
         discount.setEndDate(new Date(0));
-        discount.setIs_active(true);
+        discount.set_active(true);
         String expected = "Discount{id=1, rate=50, startDate=Thu Jan 01 01:00:00 CET 1970, endDate=Thu Jan 01 01:00:00 CET 1970, is_active=true}";
         //Act
         String actual = discount.toString();
