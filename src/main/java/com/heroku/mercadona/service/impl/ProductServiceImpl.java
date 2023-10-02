@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
         Boolean paramMatchCategory = false;
         List<Category> listOfCategories = categoryService.getAllCategories();
         for (Category category :listOfCategories){
-            if(category.getId() == categoryId){
+            if(Objects.equals(category.getId(), categoryId)){
                 paramMatchCategory = true;
             }
         }
