@@ -49,9 +49,11 @@ public class Admin {
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Builder.Default
     private LocalDate created_at = LocalDate.now();
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean is_active = true;
     
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)

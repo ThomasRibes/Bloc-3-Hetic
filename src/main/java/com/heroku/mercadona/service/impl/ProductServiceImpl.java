@@ -12,9 +12,11 @@ import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -23,12 +25,6 @@ public class ProductServiceImpl implements ProductService {
 
     @PersistenceContext
     private EntityManager manager;
-
-    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService, DiscountService discountService) {
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-        this.discountService = discountService;
-    }
 
     @Override
     public List<Product> getAllProducts() {

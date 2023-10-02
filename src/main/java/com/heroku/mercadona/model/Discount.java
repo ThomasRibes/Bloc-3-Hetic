@@ -21,6 +21,7 @@ public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Builder.Default
     private Integer id = null;
 
     @NotNull(message = "Rate is compulsory")

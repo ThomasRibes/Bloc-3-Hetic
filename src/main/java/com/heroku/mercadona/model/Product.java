@@ -61,6 +61,7 @@ public class Product implements Serializable{
     @DecimalMax(value = "10000.0", message = "Maximum discount price is 10000.00€")
     @DecimalMin(value = "0.01", message = "Minimum discount price is 0.01€")
     @Column(length = 8)
+    @Builder.Default
     private Double discountPrice = null;
 
 //  To implements when implementing urls 
@@ -70,6 +71,7 @@ public class Product implements Serializable{
     private String url;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean is_active = true;
 
     @ManyToOne
@@ -81,6 +83,7 @@ public class Product implements Serializable{
     private Admin admin;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Discount> discounts = new ArrayList<>();
 
     public Integer getId() {
