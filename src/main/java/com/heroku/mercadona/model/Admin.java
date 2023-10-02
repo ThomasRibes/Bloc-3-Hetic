@@ -52,7 +52,7 @@ public class Admin {
 
     @NotNull(message = "State is compulsory")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false)
     private AdminState state;
 
     @Column(nullable = false)
@@ -63,7 +63,12 @@ public class Admin {
     @Column(nullable = false)
     @Builder.Default
     private boolean is_active = true;
-    
+
+    @NotNull(message = "Role is compulsory")
+    @Column(nullable = false)
+    @Builder.Default
+    private String role = "ADMIN";
+
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Product> products;
 
