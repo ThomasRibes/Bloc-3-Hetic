@@ -23,8 +23,8 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin").hasRole("ADMIN");
-                    auth.requestMatchers("/").permitAll();
-                    auth.requestMatchers("/catalog").permitAll();
+                    auth.requestMatchers("/", "/catalog").permitAll();
+//                    auth.requestMatchers("/resources/static/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(Customizer.withDefaults()).build();
@@ -36,7 +36,7 @@ public class SecurityConfig {
         authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
         return authenticationManagerBuilder.build();
     }
-    
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
