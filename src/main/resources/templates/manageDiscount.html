@@ -53,7 +53,7 @@
 
             <div class="container">
                 <h2 class="mt-5">Add a discount</h2>
-                <form class="mt-5" th:action="@{/admin/product/{id}/discount/add(id=${product.id})}" th:object="${discount}" method="post">
+                <form class="mt-5" th:action="@{/admin/product/{idProduct}/discount/add(idProduct=${product.id})}" th:object="${discount}" method="post">
                     <div class="form-group">
                         <label for="rate">Product rate %</label>
                         <input th:field="*{rate}" type="number" class="form-control" id="rate" pattern="\d+" min="1" max="99" placeholder="Type the discount rate here (min = 1 , max = 99)" required>

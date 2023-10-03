@@ -109,6 +109,7 @@ public class ProductServiceImpl implements ProductService {
     public void updateDiscountPrice(List<Product> productList) {
         for (Product product : productList) {
             product.setDiscountPrice(product.getPrice());
+            this.saveProduct(product);
             List<Discount> discountList = product.getDiscounts();
             if (discountList != null && !discountList.isEmpty()) {
                 Discount bestDiscount = this.discountService.getCurrentActivatedBestDiscount(discountList);
