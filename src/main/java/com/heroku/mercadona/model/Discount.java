@@ -56,7 +56,8 @@ public class Discount {
     @Column(nullable = false)
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private boolean is_active;
+    @Builder.Default
+    private boolean is_active = true;
 
     @ManyToOne
     private Product product;
