@@ -20,10 +20,13 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Builder
@@ -78,6 +81,8 @@ public class Product implements Serializable {
     private String url;
 
     @Column(nullable = false)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @Builder.Default
     private boolean is_active = true;
 
@@ -101,6 +106,14 @@ public class Product implements Serializable {
     public void removeDiscount(Discount discount) {
         discounts.remove(discount);
         discount.setProduct(null);
+    }
+
+    public boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
     }
 
 }

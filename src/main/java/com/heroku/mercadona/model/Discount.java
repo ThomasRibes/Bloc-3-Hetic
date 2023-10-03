@@ -19,6 +19,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
@@ -54,6 +55,7 @@ public class Discount {
 
     @Column(nullable = false)
     @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private boolean is_active;
 
     @ManyToOne
@@ -61,6 +63,10 @@ public class Discount {
 
     public boolean getIs_active() {
         return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
     }
 
 }

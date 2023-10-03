@@ -79,8 +79,8 @@ public class ProductTests {
         //Arrange
         Product product = new Product();
         //Act
-        product.set_active(false);
-        Boolean actual = product.is_active();
+        product.setIs_active(false);
+        Boolean actual = product.getIs_active();
         //Assert
         Assertions.assertFalse(actual);
     }
@@ -138,7 +138,7 @@ public class ProductTests {
         product.setDescription("product test");
         product.setPrice(50.0);
         product.setUrl("product test url");
-        product.set_active(true);
+        product.setIs_active(true);
         String expected = "Product{id=1, label=tested product, description=product test, price=50.0, url=product test url, is_active=true}";
         //Act
         String actual = product.toString();
