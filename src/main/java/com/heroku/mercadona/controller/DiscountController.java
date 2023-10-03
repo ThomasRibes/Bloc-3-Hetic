@@ -37,6 +37,7 @@ public class DiscountController {
 
     @PostMapping("/admin/product/{idProduct}/discount/add")
     public String addDiscount(@PathVariable("idProduct") Integer idProduct, @Valid Discount discount, BindingResult result, Model model) {
+        
         if (result.hasErrors()) {
             Product product = this.productService.getProductById(idProduct);
             List<Discount> productDiscountList = product.getDiscounts();

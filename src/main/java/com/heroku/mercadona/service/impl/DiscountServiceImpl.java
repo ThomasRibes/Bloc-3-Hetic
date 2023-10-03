@@ -56,5 +56,7 @@ public class DiscountServiceImpl implements DiscountService {
         }
         return bestDiscount;
     }
+    
+    //check discount dates before saving discount
 
 }
