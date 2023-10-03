@@ -37,7 +37,7 @@
                     <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
                 </select>
             </div>
-            <h2>Our products</h2>
+            <h2 id="productTitle">Our products</h2>
             <div th:if="${currentProductList.empty}">
                 <span> Sorry we don't have products for this category.</span>
             </div>
