@@ -49,7 +49,7 @@
                     <tr th:each = "product : ${listProducts}" >
                         <td th:text = "${product.label}"></td>
                         <td class="col-lg-3" th:text = "${product.description}"></td>
-                        <td th:text = "${product.category.label}"></td>
+                        <td class="col-lg-2" th:text = "${product.category.label}"></td>
                         <td th:text = "${product.price}" ></td>
                         <td th:text = "${product.is_active}"></td>
                         <td th:text = "${product.url}"></td>

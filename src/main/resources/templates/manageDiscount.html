@@ -61,12 +61,12 @@
                     </div>
                     <div class="form-group">
                         <label for="startDate">Start date</label>
-                        <input th:field="*{startDate}" type="date" class="form-control" id="startDate" name="startDate" required>
+                        <input th:field="*{startDate}" type="date" class="form-control" id="startDate" name="startDate" placeholder ="Start date should be different and before the end date" required>
                             <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" >Error</span>
                     </div>
                     <div class="form-group">
                         <label for="endDate">End date</label>
-                        <input th:field="*{endDate}" type="date" class="form-control" id="endDate" name="endDate" required>
+                        <input th:field="*{endDate}" type="date" class="form-control" id="endDate" name="endDate" placeholder ="End date should be different and after the start date" required>
                             <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" >Error</span>
                     </div>
                     <div class="form-group">

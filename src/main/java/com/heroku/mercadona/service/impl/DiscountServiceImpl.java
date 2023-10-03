@@ -57,6 +57,9 @@ public class DiscountServiceImpl implements DiscountService {
         return bestDiscount;
     }
     
-    //check discount dates before saving discount
-
+    @Override
+    public boolean checkDiscountDatesCompatibility(Discount discount){
+        return discount.getEndDate().after(discount.getStartDate());
+    }
+    
 }

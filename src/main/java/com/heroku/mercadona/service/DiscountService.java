@@ -9,4 +9,5 @@ public interface DiscountService {
     Discount getDiscountById(Integer id);
     List<Discount> getAllDiscounts();
     Discount getCurrentActivatedBestDiscount(List<Discount> discountList);
+    boolean checkDiscountDatesCompatibility(Discount discount);
 }

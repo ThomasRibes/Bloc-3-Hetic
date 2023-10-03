@@ -37,7 +37,7 @@ public class DiscountController {
 
     @PostMapping("/admin/product/{idProduct}/discount/add")
     public String addDiscount(@PathVariable("idProduct") Integer idProduct, @Valid Discount discount, BindingResult result, Model model) {
-        
+
         if (result.hasErrors()) {
             Product product = this.productService.getProductById(idProduct);
             List<Discount> productDiscountList = product.getDiscounts();
@@ -45,12 +45,14 @@ public class DiscountController {
             model.addAttribute("product", product);
             return "manageDiscount";
         }
-        Product product = this.productService.getProductById(idProduct);
-        product.addDiscount(discount);
-        this.productService.saveProduct(product);
+        if (discountService.checkDiscountDatesCompatibility(discount)) {
+            Product product = this.productService.getProductById(idProduct);
+            product.addDiscount(discount);
+            this.productService.saveProduct(product);
+        }
         return "redirect:/admin/product/{idProduct}/discount/new";
-    }
 
+    }
 
     @GetMapping("/admin/product/{idProduct}/discount/activate/{id}")
     public String activateDiscount(@PathVariable("idProduct") Integer idProduct, @PathVariable("id") Integer id, Model model) {
@@ -67,5 +69,5 @@ public class DiscountController {
         this.discountService.saveDiscount(discount);
         return "redirect:/admin/product/{idProduct}/discount/new";
     }
-    
+
 }
