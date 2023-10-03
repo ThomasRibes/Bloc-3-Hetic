@@ -1,7 +1,9 @@
 package com.heroku.mercadona.controller;
 
+import com.heroku.mercadona.model.Admin;
 import com.heroku.mercadona.model.Category;
 import com.heroku.mercadona.model.Product;
+import com.heroku.mercadona.service.AdminService;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.ProductService;
 import java.util.List;
@@ -19,10 +21,12 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final AdminService adminService;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService, AdminService adminService) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.adminService = adminService;
     }
 
     @GetMapping("/catalog")
@@ -37,10 +41,10 @@ public class ProductController {
     }
 
     @GetMapping("/catalog/filter")
-    public String showCurrentFilteredProductList(@RequestParam(required = false) Integer categoryId, Model model) {        
-            List<Product> listProducts = productService.getAllProducts();
-            productService.updateDiscountPrice(listProducts);
-            
+    public String showCurrentFilteredProductList(@RequestParam(required = false) Integer categoryId, Model model) {
+        List<Product> listProducts = productService.getAllProducts();
+        productService.updateDiscountPrice(listProducts);
+
         if (productService.checkIfParamMatchNull(categoryId) || productService.checkIfParamMatchZero(categoryId)) {
             List<Product> currentProductList = productService.getAllProducts();
             model.addAttribute("currentProductList", currentProductList);
@@ -77,14 +81,17 @@ public class ProductController {
             model.addAttribute("listCategories", listCategories);
             return "createProduct";
         }
-        this.productService.saveProduct(product);
+        String username = this.adminService.getAuthenticatedAdminName();
+        Admin admin = this.adminService.getAdminByName(username);
+        admin.addProduct(product);
+        this.adminService.saveAdmin(admin);
         return "redirect:/admin";
     }
 
     @GetMapping("/admin/product/edit/{id}")
     public String updateProductForm(@PathVariable("id") Integer id, Model model) {
-        List<Category> listCategories = categoryService.getAllCategories();
-        model.addAttribute("listCategories", listCategories);
+        List<Category> listCategory = categoryService.getAllCategories();
+        model.addAttribute("listCategory", listCategory);
         Product product = this.productService.getProductById(id);
         model.addAttribute("product", product);
         return "updateProduct";

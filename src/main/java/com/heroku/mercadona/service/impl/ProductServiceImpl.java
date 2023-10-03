@@ -36,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
     public boolean checkIfParamMatchACategory(Integer categoryId) {
         Boolean paramMatchCategory = false;
         List<Category> listOfCategories = categoryService.getAllCategories();
-        for (Category category :listOfCategories){
-            if(Objects.equals(category.getId(), categoryId)){
+        for (Category category : listOfCategories) {
+            if (Objects.equals(category.getId(), categoryId)) {
                 paramMatchCategory = true;
             }
         }
@@ -52,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return paramMatchNull;
     }
+
     @Override
     public boolean checkIfParamMatchZero(Integer categoryId) {
         Boolean paramMatchNull = false;
@@ -107,18 +108,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateDiscountPrice(List<Product> productList) {
         for (Product product : productList) {
-            product.setDiscountPrice(0.00);
+            product.setDiscountPrice(product.getPrice());
             List<Discount> discountList = product.getDiscounts();
             if (discountList != null && !discountList.isEmpty()) {
                 Discount bestDiscount = this.discountService.getCurrentActivatedBestDiscount(discountList);
-                //B: to put in ProductServiceImpl:
-                Double rawDiscountPrice = product.getPrice() - (product.getPrice() * bestDiscount.getRate()) / 100;
-                Double discountPrice = (Math.ceil(rawDiscountPrice * 100)) / 100;
-                //B: end
+                Double discountPrice = calculateDiscountPrice(product.getPrice(), bestDiscount);
                 product.setDiscountPrice(discountPrice);
                 this.saveProduct(product);
             }
         }
     }
-    
+
+    private Double calculateDiscountPrice(Double price, Discount discount) {
+        Double rawDiscountPrice = price - (price * discount.getRate()) / 100;
+        return (Math.ceil(rawDiscountPrice * 100)) / 100;
+    }
+
 }

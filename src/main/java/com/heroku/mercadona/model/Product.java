@@ -33,14 +33,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "products")
 
 @NamedNativeQuery(
-    name = "getProductListByCategory",
-    query = "SELECT * " +
-            "FROM products"+
-            " WHERE category_id = ?",
-            resultClass=Product.class
-  )
+        name = "getProductListByCategory",
+        query = "SELECT * "
+        + "FROM products"
+        + " WHERE category_id = ?",
+        resultClass = Product.class
+)
 
-public class Product implements Serializable{
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,8 +69,7 @@ public class Product implements Serializable{
     @DecimalMax(value = "10000.0", message = "Maximum discount price is 10000.00€")
     @DecimalMin(value = "0.01", message = "Minimum discount price is 0.01€")
     @Column(length = 8)
-    @Builder.Default
-    private Double discountPrice = null;
+    private Double discountPrice;
 
 //  To implements when implementing urls 
 //    @NotNull(message = "Url is compulsory")
@@ -93,7 +92,6 @@ public class Product implements Serializable{
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Discount> discounts = new ArrayList<>();
-
 
     public void addDiscount(Discount discount) {
         discounts.add(discount);

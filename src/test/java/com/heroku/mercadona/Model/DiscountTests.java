@@ -70,7 +70,7 @@ public class DiscountTests {
         Discount discount = new Discount();
         //Act
         discount.set_active(false);
-        Boolean actual = discount.is_active();
+        Boolean actual = discount.getIs_active();
         //Assert
         Assertions.assertFalse(actual);
     }

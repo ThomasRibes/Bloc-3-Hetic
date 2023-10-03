@@ -13,9 +13,11 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import jakarta.validation.constraints.Positive;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -51,9 +53,14 @@ public class Discount {
     private Date endDate;
 
     @Column(nullable = false)
+    @Getter(AccessLevel.NONE)
     private boolean is_active;
 
     @ManyToOne
     private Product product;
+
+    public boolean getIs_active() {
+        return is_active;
+    }
 
 }

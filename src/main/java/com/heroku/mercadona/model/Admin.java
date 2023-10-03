@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -70,6 +71,16 @@ public class Admin {
     private String role = "ADMIN";
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = new ArrayList<>();
 
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setAdmin(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setAdmin(null);
+    }
 }
