@@ -6,14 +6,16 @@ import com.heroku.mercadona.service.DiscountService;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class DiscountServiceImpl implements DiscountService {
-
     private final DiscountRepository discountRepository;
+
+    public DiscountServiceImpl(DiscountRepository discountRepository) {
+        this.discountRepository = discountRepository;
+    }
+
 
     @Override
     public void saveDiscount(Discount discount) {

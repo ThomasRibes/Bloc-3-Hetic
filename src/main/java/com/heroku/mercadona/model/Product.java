@@ -20,18 +20,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "products")
 
@@ -81,31 +70,63 @@ public class Product implements Serializable {
     private String url;
 
     @Column(nullable = false)
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @Builder.Default
     private boolean is_active = true;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
     private Admin admin;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<Discount> discounts = new ArrayList<>();
 
-    public void addDiscount(Discount discount) {
-        discounts.add(discount);
-        discount.setProduct(this);
+    public Integer getId() {
+        return id;
     }
 
-    public void removeDiscount(Discount discount) {
-        discounts.remove(discount);
-        discount.setProduct(null);
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public boolean getIs_active() {
@@ -116,4 +137,55 @@ public class Product implements Serializable {
         this.is_active = is_active;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Product{");
+        sb.append("id=").append(id);
+        sb.append(", label=").append(label);
+        sb.append(", description=").append(description);
+        sb.append(", price=").append(price);
+        sb.append(", discountPrice=").append(discountPrice);
+        sb.append(", url=").append(url);
+        sb.append(", is_active=").append(is_active);
+        sb.append('}');
+        return sb.toString();
+    }
+
+
+        public void addDiscount(Discount discount) {
+        discounts.add(discount);
+        discount.setProduct(this);
+    }
+
+    public void removeDiscount(Discount discount) {
+        discounts.remove(discount);
+        discount.setProduct(null);
+    }
+
+    
 }

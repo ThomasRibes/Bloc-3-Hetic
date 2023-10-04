@@ -88,24 +88,29 @@ public class ProductController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/product/edit/{id}")
-    public String updateProductForm(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/admin/product/edit/{idProduct}")
+    public String updateProductForm(@PathVariable("idProduct") Integer idProduct, Model model) {
         List<Category> listCategory = categoryService.getAllCategories();
         model.addAttribute("listCategory", listCategory);
-        Product product = this.productService.getProductById(id);
+        Product product = this.productService.getProductById(idProduct);
         model.addAttribute("product", product);
+        System.out.println(product);
         return "updateProduct";
     }
 
-    @PostMapping("/admin/product/update/{id}")
-    public String updateProduct(@PathVariable("id") Integer id, @Valid Product product, BindingResult result, Model model) {
+    @PostMapping("/admin/product/update/{idProduct}")
+    public String updateProduct(@PathVariable("idProduct") Integer idProduct, @Valid Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            product.setId(id);
+            product.setId(idProduct);
             List<Category> listCategories = categoryService.getAllCategories();
             model.addAttribute("listCategories", listCategories);
             return "updateProduct";
         }
-        productService.saveProduct(product);
+//        productService.saveProduct(product);
+        String username = this.adminService.getAuthenticatedAdminName();
+        Admin admin = this.adminService.getAdminByName(username);
+        admin.addProduct(product);
+        this.adminService.saveAdmin(admin);
         return "redirect:/admin";
     }
 

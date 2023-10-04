@@ -91,8 +91,8 @@ public class AdminTests {
         //Arrange
         Admin admin = new Admin();
         //Act
-        admin.set_active(false);
-        Boolean actual = admin.is_active();
+        admin.setIs_active(false);
+        Boolean actual = admin.getIs_active();
         //Assert
         Assertions.assertFalse(actual);
     }
@@ -123,7 +123,7 @@ public class AdminTests {
         admin.setPassword("password");
         admin.setState(AdminState.PW_REDEFINED);
         admin.setCreated_at(LocalDate.of(2023, Month.JANUARY, 1));
-        admin.set_active(false);
+        admin.setIs_active(false);
         String expected = "Admin{id=1, name=admin, email=admin@admin.fr, password=password, state=SUPER_ADMIN, created_at=2023-01-01, is_active=false}";
         //Act
         String actual = admin.toString();

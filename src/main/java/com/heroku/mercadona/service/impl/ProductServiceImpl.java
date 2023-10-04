@@ -13,12 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
+    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService, DiscountService discountService) {
+        this.productRepository = productRepository;
+        this.categoryService = categoryService;
+        this.discountService = discountService;
+    }
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;

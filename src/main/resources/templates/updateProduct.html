@@ -27,7 +27,7 @@
         </nav>
         <div class="container">
             <h2 class="mt-5">Add a product</h2>
-            <form class="mt-5" th:action="@{/admin/product/update/{id}(id=${product.id})}" th:object="${product}" method="post">
+            <form class="mt-5" th:action="@{/admin/product/update/{idProduct}(idProduct=${product.id})}" th:object="${product}" method="post">
                 <div class="form-group">
                     <label for="label">Product label</label>
                     <input th:field="*{label}" type="text" class="form-control" id="label" placeholder="Type the product label here (50 char max)" required>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select th:field="*{category}" class="form-control" id="category" required>
-                        <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
+                        <option th:each="category : ${listCategory}" th:value="${category.id}" th:text="${category.label}"></option>
                     </select>
                     <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}" >Error</span>
                 </div>
