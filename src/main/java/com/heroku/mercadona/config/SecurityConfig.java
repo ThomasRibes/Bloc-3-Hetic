@@ -17,17 +17,16 @@ public class SecurityConfig {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/admin").hasRole("ADMIN");
-                    auth.requestMatchers("/", "/catalog").permitAll();
-//                    auth.requestMatchers("/resources/static/**").permitAll();
-                    auth.anyRequest().authenticated();
+    return http
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers("/admin").hasRole("ADMIN");
+                auth.requestMatchers("/", "/catalog", "/login").permitAll();
+                auth.anyRequest().authenticated();
                 })
-                .formLogin(Customizer.withDefaults()).build();
+            .formLogin(Customizer.withDefaults()).build();
     }
 
     @Bean

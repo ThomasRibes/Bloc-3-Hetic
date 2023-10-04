@@ -1,7 +1,7 @@
 package com.heroku.mercadona.config;
 
 import com.heroku.mercadona.model.Admin;
-import com.heroku.mercadona.service.AdminService;
+import com.heroku.mercadona.repository.AdminRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private AdminService adminService;
+    private AdminRepository adminRepository;
 
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -26,8 +26,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Admin admin = adminService.getAdminByName(name);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Admin admin = adminRepository.findAdminByEmail(email);
+        if(admin == null){
+            throw new UsernameNotFoundException("No user found with email");
+        }
         return new User(admin.getName(), admin.getPassword(), getGrantedAuthorities(admin.getRole()));
     }
 
