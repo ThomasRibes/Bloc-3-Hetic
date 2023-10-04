@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.OneToMany;
@@ -172,6 +171,9 @@ public class Product implements Serializable {
         sb.append(", discountPrice=").append(discountPrice);
         sb.append(", url=").append(url);
         sb.append(", is_active=").append(is_active);
+        sb.append(", category=").append(category);
+        sb.append(", admin=").append(admin);
+        sb.append(", discounts=").append(discounts);
         sb.append('}');
         return sb.toString();
     }

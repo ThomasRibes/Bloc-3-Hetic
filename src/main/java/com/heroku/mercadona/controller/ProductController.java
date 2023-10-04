@@ -44,17 +44,14 @@ public class ProductController {
     public String showCurrentFilteredProductList(@RequestParam(required = false) Integer categoryId, Model model) {
         List<Product> listProducts = productService.getAllProducts();
         productService.updateDiscountPrice(listProducts);
-
         if (productService.checkIfParamMatchNull(categoryId) || productService.checkIfParamMatchZero(categoryId)) {
             List<Product> currentProductList = productService.getAllProducts();
             model.addAttribute("currentProductList", currentProductList);
         }
-
         if (productService.checkIfParamMatchACategory(categoryId)) {
             List<Product> currentProductList = productService.getProductListByCategory(categoryId);
             model.addAttribute("currentProductList", currentProductList);
         }
-
         return "frag/filteredProducts :: ourFilteredProducts";
     }
 
@@ -94,23 +91,18 @@ public class ProductController {
         model.addAttribute("listCategory", listCategory);
         Product product = this.productService.getProductById(idProduct);
         model.addAttribute("product", product);
-        System.out.println(product);
         return "updateProduct";
     }
 
-    @PostMapping("/admin/product/update/{idProduct}")
-    public String updateProduct(@PathVariable("idProduct") Integer idProduct, @Valid Product product, BindingResult result, Model model) {
+    @PostMapping("/admin/product/update/{id}")
+    public String updateProduct(@PathVariable("id") Integer id, @Valid Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            product.setId(idProduct);
+            product.setId(id);
             List<Category> listCategories = categoryService.getAllCategories();
             model.addAttribute("listCategories", listCategories);
             return "updateProduct";
         }
-//        productService.saveProduct(product);
-        String username = this.adminService.getAuthenticatedAdminName();
-        Admin admin = this.adminService.getAdminByName(username);
-        admin.addProduct(product);
-        this.adminService.saveAdmin(admin);
+        productService.saveProduct(product);
         return "redirect:/admin";
     }
 
