@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductListByCategory(Integer categoryId) {
+    public List<Product> getActiveProductListByCategory(Integer categoryId) {
         List<Product> productListByCategory = manager.createNamedQuery("getProductListByCategory", Product.class)
                 .setParameter(1, categoryId)
                 .getResultList();
@@ -127,6 +127,11 @@ public class ProductServiceImpl implements ProductService {
     private Double calculateDiscountPrice(Double price, Discount discount) {
         Double rawDiscountPrice = price - (price * discount.getRate()) / 100;
         return (Math.ceil(rawDiscountPrice * 100)) / 100;
+    }
+
+    @Override
+    public List<Product> getAllActiveProducts() {
+        return productRepository.findAllActiveProducts();
     }
 
 }

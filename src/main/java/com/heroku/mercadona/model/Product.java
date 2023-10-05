@@ -27,7 +27,8 @@ import java.util.List;
         name = "getProductListByCategory",
         query = "SELECT * "
         + "FROM products"
-        + " WHERE category_id = ?",
+        + " WHERE is_active = true"
+        + " AND category_id = ?",
         resultClass = Product.class
 )
 

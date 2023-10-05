@@ -7,10 +7,11 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> getAllProducts();
+    List<Product> getAllActiveProducts();
     boolean checkIfParamMatchACategory(Integer categoryId);
     boolean checkIfParamMatchNull(Integer categoryId);
     boolean checkIfParamMatchZero(Integer categoryId);
-    List<Product> getProductListByCategory(Integer categoryId);
+    List<Product> getActiveProductListByCategory(Integer categoryId);
     void saveProduct(Product product);
     Product getProductById(Integer id);
     void deleteProductById(Integer id);
