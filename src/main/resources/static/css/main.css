@@ -7,3 +7,14 @@
 .line-through {
     text-decoration: line-through;
 }
+
+.card {
+    width: 200px;
+    height: 300px;
+}
+
+.picture {
+    min-width: 300px;
+    max-width: 100%;
+    height: auto;
+}

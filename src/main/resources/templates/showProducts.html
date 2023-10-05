@@ -13,12 +13,9 @@
         <script type="text/javascript" th:src="@{js/filters.js}" defer></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <nav class="navbar navbar-expand navbar-dark bg-success">
             <a class="navbar-brand" href="/">Mercadona</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
+            <div class="ml-3" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -32,7 +29,7 @@
         <div class="container-fluid text-center mt-5">
             <div class="d-flex flex-column align-items-center form-group mb-5">
                 <label for="category">Filter by category</label>
-                <select field="*{category}" class="col-3 form-control mr-2" id="category" name="category" required>
+                <select field="*{category}" class="col-3 form-control mx-1" id="category" name="category" required>
                     <option value="0" >All</option>
                     <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
                 </select>
@@ -41,10 +38,10 @@
             <div th:if="${currentProductList.empty}">
                 <span> Sorry we don't have products for this category.</span>
             </div>
-            <div id="ourFilteredProducts" >
-                <div class="d-flex mt-5 justify-content-center mt-5" id="ourProducts" name="ourProducts">
+            <div class="" id="ourFilteredProducts" >
+                <div class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" id="ourProducts" name="ourProducts">
                     <th:block th:each="product: ${currentProductList}">
-                        <div class="card rounded shadow col-sm-2 m-3" style="width: 18rem;">
+                        <div class="card rounded shadow m-3" style="width: 18rem;">
                             <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
                             <div class="card-body">
                                 <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
