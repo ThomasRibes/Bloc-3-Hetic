@@ -6,6 +6,7 @@ import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.AdminService;
 import com.heroku.mercadona.service.CategoryService;
 import com.heroku.mercadona.service.ProductService;
+import com.heroku.mercadona.service.StorageService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProductController {
@@ -22,11 +24,13 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final AdminService adminService;
+    private final StorageService storageService;
 
-    public ProductController(ProductService productService, CategoryService categoryService, AdminService adminService) {
+    public ProductController(ProductService productService, CategoryService categoryService, AdminService adminService, StorageService storageService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.adminService = adminService;
+        this.storageService = storageService;
     }
 
     @GetMapping("/catalog")
@@ -72,12 +76,17 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/add")
-    public String addProduct(@Valid Product product, BindingResult result, Model model) {
+    public String addProduct(@RequestParam(value = "file") MultipartFile file, @Valid Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
             List<Category> listCategories = categoryService.getAllCategories();
             model.addAttribute("listCategories", listCategories);
             return "createProduct";
         }
+        //check if file exists and is valid or send exception
+        String fileName = storageService.fileNameGen(file);
+        String url = storageService.urlGen(fileName);
+        product.setUrl(url);
+        storageService.saveFile(file, fileName);
         String username = this.adminService.getAuthenticatedAdminName();
         Admin admin = this.adminService.getAdminByName(username);
         admin.addProduct(product);
@@ -106,8 +115,41 @@ public class ProductController {
         return "redirect:/admin";
     }
 
+    //Edit product picture
+    @GetMapping("/admin/product/{id}/edit/picture")
+    public String updateProductPictureForm(@PathVariable("id") Integer id, Model model) {
+        //check if file exists and is valid or send exception
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "updateProductPicture";
+    }
+
+    //Update product picture
+    @PostMapping("/admin/product/{id}/update/picture")
+    public String updateProductPicture(@RequestParam(value = "file") MultipartFile file, @PathVariable("id") Integer id, Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "updateProductPicture";
+        }
+        //check if file exists and is valid or send exception        
+        Product productFinal = this.productService.getProductById(id);
+        String urlToDelete = productFinal.getUrl();
+        String fileNameToDelete = storageService.urlToFileName(urlToDelete);
+        storageService.deleteFile(fileNameToDelete);
+        String fileName = storageService.fileNameGen(file);
+        String url = storageService.urlGen(fileName);
+        storageService.saveFile(file, fileName);
+        productFinal.setUrl(url);
+        this.productService.saveProduct(productFinal);
+
+        return "redirect:/admin";
+    }
+
     @GetMapping("admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, Model model) {
+        Product product = this.productService.getProductById(id);
+        String url = product.getUrl();
+        String fileName = storageService.urlToFileName(url);
+        storageService.deleteFile(fileName);
         this.productService.deleteProductById(id);
         return "redirect:/admin";
     }

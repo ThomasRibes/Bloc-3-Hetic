@@ -124,7 +124,7 @@ public class AdminTests {
         admin.setState(AdminState.PW_REDEFINED);
         admin.setCreated_at(LocalDate.of(2023, Month.JANUARY, 1));
         admin.setIs_active(false);
-        String expected = "Admin{id=1, name=admin, email=admin@admin.fr, password=password, state=SUPER_ADMIN, created_at=2023-01-01, is_active=false}";
+        String expected = "Admin{id=1, name=admin, email=admin@admin.fr, password=password, state=PW_REDEFINED, created_at=2023-01-01, is_active=false, role=ADMIN}";
         //Act
         String actual = admin.toString();
         //Assert

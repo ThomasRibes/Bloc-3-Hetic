@@ -1,6 +1,6 @@
 <div th:fragment="ourFilteredProducts" class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" id="fragFilteredProducts" name="fragFilteredProducts">
     <th:block th:each="product: ${currentProductList}">
-        <div class="card rounded shadow col-sm-2 m-3" style="width: 18rem;">
+        <div class="card rounded shadow m-3" style="width: 18rem;">
             <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
             <div class="card-body">
                 <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>

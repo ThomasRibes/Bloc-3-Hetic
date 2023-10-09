@@ -63,10 +63,8 @@ public class Product implements Serializable {
     @Column(length = 8)
     private Double discountPrice;
 
-//  To implements when implementing urls 
-//    @NotNull(message = "Url is compulsory")
-//    @Size(min = 10, max = 500, message = "URL should be a minimum of 10 characters and a maximum of 500")
-    @Column(/*nullable = false,*/length = 500)
+    @NotNull(message = "Url is compulsory")
+    @Column(nullable = false,length = 500)
     private String url;
 
     @Column(nullable = false)

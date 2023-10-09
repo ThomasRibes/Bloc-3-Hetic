@@ -79,8 +79,12 @@
             <artifactId>axios</artifactId>
             <version>0.19.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.558</version>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

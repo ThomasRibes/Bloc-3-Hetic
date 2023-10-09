@@ -139,7 +139,7 @@ public class ProductTests {
         product.setPrice(50.0);
         product.setUrl("product test url");
         product.setIs_active(true);
-        String expected = "Product{id=1, label=tested product, description=product test, price=50.0, url=product test url, is_active=true}";
+        String expected = "Product{id=1, label=tested product, description=product test, price=50.0, discountPrice=null, url=product test url, is_active=true, category=null, admin=null, discounts=[]}";
         //Act
         String actual = product.toString();
         //Assert

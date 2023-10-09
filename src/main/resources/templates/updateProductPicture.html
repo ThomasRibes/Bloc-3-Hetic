@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Mercadona - ADMIN</title>
+        <meta charset="UTF-8" ></meta>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
+        <meta name="description" content="Mercadona retail, get all you want"></meta>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+        <link rel="stylesheet" type="text/css" th:href="@{css/main.css}" ></link>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand navbar-dark bg-primary">
+            <a class="navbar-brand" href="/admin">Mercadona - ADMIN</a>
+            <div class="ml-3" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/catalog">Catalog <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container text-center d-flex flex-column align-items-center mt-5">
+            <h2 class="mt-5">Update product picture</h2>
+            <form class="col-12 col-sm-8 mt-5" th:action="@{/admin/product/{id}/update/picture(id=${product.id})}" th:object="${product}" enctype="multipart/form-data" method="post">
+                <div class="form-group" >
+                    <label for="picture">Product picture</label>
+                    <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" id="picture" required>
+                        <span class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" >Error</span>
+                        <div th:if="${product.url}">
+                            <span class="text-success" th:text="${#strings.substring(product.url,59,product.url.length())}"></span>
+                        </div>
+                </div>
+                <button type="submit" class="btn btn-warning">Update product's picture</button>
+            </form>
+        </div>
+    </body>
