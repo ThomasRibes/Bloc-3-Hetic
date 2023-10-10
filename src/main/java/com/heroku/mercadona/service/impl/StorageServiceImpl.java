@@ -10,10 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 @Service
 public class StorageServiceImpl implements StorageService {
 
+    // For dev local:
     @Value("${application.bucket.name}")
     private String bucketName;
 
@@ -30,7 +32,17 @@ public class StorageServiceImpl implements StorageService {
         while (true) {
             try {
                 File file1 = convertMultiPartToFile(file);
+
+                // Dev
                 PutObjectResult putObjectResult = s3.putObject(bucketName, fileName, file1);
+
+                // Prod
+//                PutObjectResult putObjectResult = s3.putObject(System.getenv("AWS_S3_BUCKET"), fileName, file1);
+                try {
+                    boolean result = Files.deleteIfExists(file1.toPath());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 return putObjectResult.getContentMd5();
             } catch (IOException e) {
                 if (++count == maxTries) {
@@ -42,25 +54,29 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String deleteFile(String fileName) {
+        // Dev
         s3.deleteObject(bucketName, fileName);
+
+        // Prod
+//        s3.deleteObject(System.getenv("AWS_S3_BUCKET"), fileName);
         return "File deleted";
     }
 
     @Override
-    public String fileNameGen(MultipartFile file){
+    public String fileNameGen(MultipartFile file) {
         return System.currentTimeMillis() + "_" + file.getOriginalFilename();
     }
 
     @Override
-    public String urlToFileName(String url){
+    public String urlToFileName(String url) {
         return url.substring(45);
     }
-    
+
     @Override
-    public String urlGen(String fileName){
-        return "https://mercadona.s3.eu-west-3.amazonaws.com/"+ fileName ;
+    public String urlGen(String fileName) {
+        return "https://mercadona.s3.eu-west-3.amazonaws.com/" + fileName;
     }
-    
+
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
         FileOutputStream fos = new FileOutputStream(convFile);
@@ -68,5 +84,5 @@ public class StorageServiceImpl implements StorageService {
         fos.close();
         return convFile;
     }
-    
+
 }
