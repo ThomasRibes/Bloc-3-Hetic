@@ -16,8 +16,8 @@ import java.nio.file.Files;
 public class StorageServiceImpl implements StorageService {
 
     // For dev local:
-    @Value("${application.bucket.name}")
-    private String bucketName;
+//    @Value("${application.bucket.name}")
+//    private String bucketName;
 
     private final AmazonS3 s3;
 
@@ -34,10 +34,10 @@ public class StorageServiceImpl implements StorageService {
                 File file1 = convertMultiPartToFile(file);
 
                 // Dev
-                PutObjectResult putObjectResult = s3.putObject(bucketName, fileName, file1);
+//                PutObjectResult putObjectResult = s3.putObject(bucketName, fileName, file1);
 
                 // Prod
-//                PutObjectResult putObjectResult = s3.putObject(System.getenv("AWS_S3_BUCKET"), fileName, file1);
+                PutObjectResult putObjectResult = s3.putObject(System.getenv("AWS_S3_BUCKET"), fileName, file1);
                 try {
                     boolean result = Files.deleteIfExists(file1.toPath());
                 } catch (Exception e) {
@@ -55,10 +55,10 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String deleteFile(String fileName) {
         // Dev
-        s3.deleteObject(bucketName, fileName);
+//        s3.deleteObject(bucketName, fileName);
 
         // Prod
-//        s3.deleteObject(System.getenv("AWS_S3_BUCKET"), fileName);
+        s3.deleteObject(System.getenv("AWS_S3_BUCKET"), fileName);
         return "File deleted";
     }
 
