@@ -14,23 +14,23 @@ import org.springframework.context.annotation.Bean;
 public class S3Config {
     
     // For dev local :
-//    @Value("${cloud.aws.accessKey}")
-//    private String accessKey;
-//    @Value("${cloud.aws.secretKey}")
-//    private String secretKey;
-//    @Value("${cloud.aws.region.static}")
-//    private String region;
+    @Value("${cloud.aws.accessKey}")
+    private String accessKey;
+    @Value("${cloud.aws.secretKey}")
+    private String secretKey;
+    @Value("${cloud.aws.region.static}")
+    private String region;
     
     @Bean
     public AmazonS3 s3(){
         // For dev local :
-//        AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-//        return AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-//                .withRegion(region).build();
+        AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+        return AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .withRegion(region).build();
 
         // For prod Heroku :
-        AWSCredentials awsCredentials = new BasicAWSCredentials(System.getenv("AWS_S3_KEY"), System.getenv("AWS_S3_SECRET"));
-        return AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withRegion(System.getenv("AWS_S3_REGION")).build();
+//        AWSCredentials awsCredentials = new BasicAWSCredentials(System.getenv("AWS_S3_KEY"), System.getenv("AWS_S3_SECRET"));
+//        return AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+//                .withRegion(System.getenv("AWS_S3_REGION")).build();
     }
 }
