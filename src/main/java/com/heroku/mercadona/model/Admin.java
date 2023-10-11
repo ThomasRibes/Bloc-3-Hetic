@@ -40,7 +40,7 @@ public class Admin {
     @NotNull(message = "Password is compulsory")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8, 16}$",
             message = "Password should contains a minimum of: 1 lower case , 1 upper case, 1 digit, 1 special character, no white spaces and at least 8 and at most 20 characters")
-    @Column(nullable = false, unique = true, length = 250)
+    @Column(nullable = false, length = 250)
     private String password;
 
     @NotNull(message = "State is compulsory")
