@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/css/**", "/js/**", "/webjars/**").permitAll();
-                    auth.requestMatchers("/", "/catalog","/catalog/filter", "/login").permitAll();
+                    auth.requestMatchers("/", "/catalog","/catalog/filter", "/login", "/error").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(Customizer.withDefaults()).build();
