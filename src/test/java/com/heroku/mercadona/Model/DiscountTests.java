@@ -1,6 +1,7 @@
 package com.heroku.mercadona.Model;
 
 import com.heroku.mercadona.model.Discount;
+import com.heroku.mercadona.model.Product;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.jupiter.api.Assertions;
@@ -37,10 +38,9 @@ public class DiscountTests {
     @Test
     public void unitTestDiscountSetStartDateAndGetStartDate() {
         //Arrange
-        SimpleDateFormat formater = null;
         Discount discount = new Discount();
         Date date = new Date();
-        formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         String expected = formater.format(date);
         //Act
         discount.setStartDate(new Date());
@@ -52,10 +52,9 @@ public class DiscountTests {
     @Test
     public void unitTestDiscountSetEndDateAndGetEndDate() {
         //Arrange
-        SimpleDateFormat formater = null;
         Discount discount = new Discount();
         Date date = new Date();
-        formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         String expected = formater.format(date);
         //Act
         discount.setEndDate(new Date());
@@ -73,6 +72,18 @@ public class DiscountTests {
         Boolean actual = discount.getIs_active();
         //Assert
         Assertions.assertFalse(actual);
+    }
+
+    @Test
+    public void unitTestDiscountSetProductAndGetProduct() {
+        //Arrange
+        Discount discount = new Discount();
+        Product product = new Product();
+        //Act
+        discount.setProduct(product);
+        Product productTest = discount.getProduct();
+        //Assert
+        Assertions.assertNotNull(productTest);
     }
 
     @Test

@@ -1,4 +1,3 @@
-
 package com.heroku.mercadona.Model;
 
 import com.heroku.mercadona.model.Admin;
@@ -127,6 +126,45 @@ public class ProductTests {
         Integer actual = product.getDiscounts().get(0).getId();
         //Assert
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unitTestProductSetDiscountPriceAndGetDiscountPrice() {
+        //Arrange
+        Product product = new Product();
+        product.setDiscountPrice(50.0);
+        Double expected = 50.0;
+        //Act
+        Double actual = product.getDiscountPrice();
+        //Assert
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unitTestProductAddDiscount() {
+        //Arrange
+        Discount discount = new Discount();
+        discount.setId(333);
+        Product product = new Product();
+        Integer expected = 333;
+        //Act
+        product.addDiscount(discount);
+        Integer actual = product.getDiscounts().get(0).getId();
+        //Assert
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unitTestProductRemoveDiscount() {
+        //Arrange
+        Discount discount = new Discount();
+        discount.setId(333);
+        Product product = new Product();
+        product.addDiscount(discount);
+        //Act
+        product.removeDiscount(discount);
+        //Assert
+        Assertions.assertFalse(product.getDiscounts().contains(discount));
     }
 
     @Test

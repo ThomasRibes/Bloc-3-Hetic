@@ -1,4 +1,4 @@
-package com.heroku.mercadona.config;
+package com.heroku.mercadona.service.impl;
 
 import com.heroku.mercadona.model.Admin;
 import com.heroku.mercadona.repository.AdminRepository;
@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private AdminRepository adminRepository;

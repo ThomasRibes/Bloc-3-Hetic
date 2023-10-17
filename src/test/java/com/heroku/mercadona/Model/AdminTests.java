@@ -98,7 +98,7 @@ public class AdminTests {
     }
 
     @Test
-    public void unitTestDiscountSetProductsAndGetProducts() {
+    public void unitTestAdminSetProductAndGetProduct() {
         //Arrange
         Product product = new Product();
         product.setId(888);
@@ -114,6 +114,45 @@ public class AdminTests {
     }
 
     @Test
+    public void unitTestAdminSetRoleAndGetRole() {
+        //Arrange
+        Admin admin = new Admin();
+        String expected = "ADMIN";
+        //Act
+        admin.setRole("ADMIN");
+        String actual = admin.getRole();
+        //Assert
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unitTestAdminAddProduct() {
+        //Arrange
+        Product product = new Product();
+        product.setId(5);
+        Admin admin = new Admin();
+        Integer expected = 5;
+        //Act
+        admin.addProduct(product);
+        Integer actual = admin.getProducts().get(0).getId();
+        //Assert
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void unitTestAdminRemoveProduct() {
+        //Arrange
+        Product product = new Product();
+        product.setId(5);
+        Admin admin = new Admin();
+        admin.addProduct(product);
+        //Act
+        admin.removeProduct(product);
+        //Assert
+        Assertions.assertFalse(admin.getProducts().contains(product));
+    }
+
+    @Test
     public void unitTestAdminToString() {
         //Arrange
         Admin admin = new Admin();
@@ -124,6 +163,7 @@ public class AdminTests {
         admin.setState(AdminState.PW_REDEFINED);
         admin.setCreated_at(LocalDate.of(2023, Month.JANUARY, 1));
         admin.setIs_active(false);
+        admin.setRole("ADMIN");
         String expected = "Admin{id=1, name=admin, email=admin@admin.fr, password=password, state=PW_REDEFINED, created_at=2023-01-01, is_active=false, role=ADMIN}";
         //Act
         String actual = admin.toString();
