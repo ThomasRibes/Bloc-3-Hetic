@@ -32,7 +32,7 @@ build/
 !**/src/test/**/build/
 /hibernate.cfg.xml
 /Persistence.xml
-src/main/resources/application.yml
+application-dev.properties
 nbactions-dev.xml
 
 ### VS Code ###
