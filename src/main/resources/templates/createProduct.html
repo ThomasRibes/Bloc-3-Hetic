@@ -49,7 +49,7 @@
                     <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}" >Error</span>
                 </div>
                 <div class="form-group" >
-                    <label for="picture">Product picture</label>
+                    <label for="picture">Product picture (512ko max, only .png or .jpg are allowed)</label>
                     <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" id="picture" required>
                 </div>
                 <div class="form-group">

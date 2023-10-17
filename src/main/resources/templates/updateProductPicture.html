@@ -27,7 +27,7 @@
             <h2 class="mt-5">Update product picture</h2>
             <form class="col-12 col-sm-8 mt-5" th:action="@{/admin/product/{id}/update/picture(id=${product.id})}" th:object="${product}" enctype="multipart/form-data" method="post">
                 <div class="form-group" >
-                    <label for="picture">Product picture</label>
+                    <label for="picture">Product picture (512ko max, only .png or .jpg are allowed)</label>
                     <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" id="picture" required>
                         <span class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" >Error</span>
                         <div th:if="${product.url}">
