@@ -54,12 +54,12 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String urlToFileName(String url) {
-        return url.substring(45);
+        return url.substring(48);
     }
 
     @Override
     public String urlGen(String fileName) {
-        return "https://mercadona.s3.eu-west-3.amazonaws.com/" + fileName;
+        return "https://mercadona-s3.s3.eu-west-3.amazonaws.com/" + fileName;
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
