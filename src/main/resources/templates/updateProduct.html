@@ -50,7 +50,9 @@
                 </div>
                 <input th:field="*{url}" type="hidden" class="form-control" id="url" required>
                     <span class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" >Error</span>
-                <button type="submit" class="btn btn-warning">Update this product</button>
-            </form>
-        </div>
-    </body>
+                    <input th:field="*{discounts}" type="hidden" class="form-control" id="discounts" required>
+                        <span class="text-danger" th:if="${#fields.hasErrors('discounts')}" th:errors="*{discounts}" >Error</span>
+                        <button type="submit" class="btn btn-warning">Update this product</button>
+                        </form>
+                        </div>
+                        </body>
