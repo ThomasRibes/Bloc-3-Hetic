@@ -11,7 +11,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-primary">
-            <a class="navbar-brand" href="/admin">Mercadona - ADMIN</a>
+            <a class="navbar-brand brand" href="/admin">Mercadona - ADMIN</a>
             <div class="ml-3" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="Description">Product description</label>
-                    <textarea th:field="*{description}" class="form-control" id="Description" rows="3" maxlength="500" placeholder="Type the product description here (500 char max)" required></textarea>
+                    <textarea th:field="*{description}" class="form-control" id="Description" rows="3" maxlength="150" placeholder="Type the product description here (150 char max)" required></textarea>
                     <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" >Error</span>
                 </div>
                 <div class="form-group">

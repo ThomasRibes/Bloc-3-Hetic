@@ -1,7 +1,15 @@
 <div th:fragment="ourFilteredProducts" class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" id="fragFilteredProducts" name="fragFilteredProducts">
+    <div th:if="${#lists.isEmpty(currentProductList)}">
+        <h2 class="no-product mt-5 text-success"> Sorry we currently don't have products for this category.</h2>
+    </div>
     <th:block th:each="product: ${currentProductList}">
         <div class="card rounded shadow m-3" style="width: 18rem;">
             <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
+            <th:block th:if="${product.discountPrice != product.price}">
+                <div class="badge-overlay">
+                    <span class="top-left badge red">Discount</span>
+                </div>
+            </th:block>
             <div class="card-body">
                 <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
                 <th:block th:if="${product.discountPrice != product.price}">

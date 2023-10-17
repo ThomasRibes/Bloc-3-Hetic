@@ -14,7 +14,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-success">
-            <a class="navbar-brand" href="/">Mercadona</a>
+            <a class="navbar-brand brand" href="/">Mercadona</a>
             <div class="ml-3" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -28,27 +28,32 @@
         </nav>
         <div class="container-fluid text-center mt-5">
             <div class="d-flex flex-column align-items-center form-group mb-5">
-                <label for="category">Filter by category</label>
+                <label class="font-weight-bold" for="category">Filter by category</label>
                 <select field="*{category}" class="col-3 form-control mx-1" id="category" name="category" required>
                     <option value="0" >All</option>
                     <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
                 </select>
             </div>
-            <h2 id="productTitle">Our products</h2>
-            <div th:if="${currentProductList.empty}">
-                <span> Sorry we don't have products for this category.</span>
+            <h2 id="productTitle">Our products :</h2>
+            <div th:if="${#lists.isEmpty(currentProductList)}">
+                <h2 class="no-product mt-5 text-success"> Sorry we currently don't have products for this category.</h2>
             </div>
             <div class="" id="ourFilteredProducts" >
                 <div class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" id="ourProducts" name="ourProducts">
                     <th:block th:each="product: ${currentProductList}">
                         <div class="card rounded shadow m-3" style="width: 18rem;">
                             <img th:src="@{${product.url}}" class="card-img-top" alt="product picture"></img>
+                            <th:block th:if="${product.discountPrice != product.price}">
+                                <div class="badge-overlay">
+                                    <span class="top-left badge red">Discount</span>
+                                </div>
+                            </th:block>
                             <div class="card-body">
                                 <h5 class="card-subtitle mb-2 text-body-secondary">[[${product.label}]]</h5>
                                 <th:block th:if="${product.discountPrice != product.price}">
                                     <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
                                 </th:block>
-                                <h5 class="card-title" th:class="product.discountPrice == null ? 'card-title line-through' : 'card-title'">Price [[${product.price}]]€</h5>
+                                <h5 class="card-title" th:attr="class=${product.discountPrice != product.price ? 'card-title line-through' : 'card-title'}">Price [[${product.price}]]€</h5>
                                 <p class="card-text">[[${product.description}]]</p>
                             </div>
                         </div>
