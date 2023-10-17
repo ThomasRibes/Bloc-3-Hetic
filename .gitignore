@@ -33,6 +33,7 @@ build/
 /hibernate.cfg.xml
 /Persistence.xml
 src/main/resources/application.yml
+nbactions-dev.xml
 
 ### VS Code ###
 .vscode/
