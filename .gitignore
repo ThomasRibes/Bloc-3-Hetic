@@ -34,6 +34,7 @@ build/
 /Persistence.xml
 application-dev.properties
 nbactions-dev.xml
+nbactions.xml
 
 ### VS Code ###
 .vscode/
