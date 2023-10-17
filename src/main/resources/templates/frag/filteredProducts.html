@@ -15,7 +15,7 @@
                 <th:block th:if="${product.discountPrice != product.price}">
                     <h4 class="card-title discounted-price">Discount price: [[${product.discountPrice}]]€</h4>
                 </th:block>
-                <h5 class="card-title" th:class="product.discountPrice == null ? 'card-title line-through' : 'card-title'">Price [[${product.price}]]€</h5>
+                <h5 class="card-title" th:attr="class=${product.discountPrice != product.price ? 'card-title line-through' : 'card-title'}">Price [[${product.price}]]€</h5>
                 <p class="card-text">[[${product.description}]]</p>
             </div>
         </div>
