@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
+
     private final DiscountRepository discountRepository;
 
     public DiscountServiceImpl(DiscountRepository discountRepository) {
         this.discountRepository = discountRepository;
     }
 
-
     @Override
-    public void saveDiscount(Discount discount) {
-        this.discountRepository.save(discount);
+    public Discount saveDiscount(Discount discount) {
+        return discountRepository.save(discount);
     }
 
     @Override
@@ -58,10 +58,10 @@ public class DiscountServiceImpl implements DiscountService {
         }
         return bestDiscount;
     }
-    
+
     @Override
-    public boolean checkDiscountDatesCompatibility(Discount discount){
+    public boolean checkDiscountDatesCompatibility(Discount discount) {
         return discount.getEndDate().after(discount.getStartDate());
     }
-    
+
 }

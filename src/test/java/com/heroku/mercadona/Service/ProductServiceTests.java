@@ -1,105 +1,107 @@
 package com.heroku.mercadona.Service;
 
 import com.heroku.mercadona.model.Product;
-import com.heroku.mercadona.service.ProductService;
+import com.heroku.mercadona.repository.ProductRepository;
+import com.heroku.mercadona.service.impl.ProductServiceImpl;
+import java.util.List;
+import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ProductServiceTests {
 
-    @Autowired
-    private ProductService productService;
+    @Mock
+    private ProductRepository productRepositroy;
 
-//    @Test
-//    public void integrationTestProductRepositoryAddProduct() {
-//        //Arrange
-//        Product product = new Product();
-//        product.setDescription("test add product");
-//        product.setLabel("tested product");
-//        product.setPrice(10.0);
-//        product.setUrl("url");
-//        //Act
-//        productService.saveProduct(product);
-//        Product productAdded = productService.getProductById(productService.getLastInsertedProductId());
-//        //Assert
-//        Assertions.assertNotNull(productAdded, "Product should not be null");
-//        Assertions.assertEquals("test add product",productAdded.getDescription());
-//        productService.deleteProductById(productAdded.getId());
-//    }
+    @InjectMocks
+    private ProductServiceImpl productService;
 
-//    @Test
-//    public void integrationTestProductRepositoryGetProductById() {
-//        //Arrange
-//        Product product1 = new Product();
-//        product1.setDescription("test get product by id 1");
-//        product1.setLabel("product1");
-//        product1.setPrice(20.0);
-//        product1.setUrl("url1");
-//        Product product2 = new Product();
-//        product2.setDescription("test get product by id 2");
-//        product2.setLabel("product2");
-//        product2.setPrice(30.0);
-//        product2.setUrl("url2");
-//        //Act
-//        productService.saveProduct(product1);
-//        Integer firstProductId = productService.getLastInsertedProductId();
-//        productService.saveProduct(product2);
-//        Product productAdded = productService.getProductById(firstProductId + 1);
-//        //Assert
-//        Assertions.assertEquals("product2",productAdded.getLabel());
-//        productService.deleteProductById(firstProductId);
-//        productService.deleteProductById(firstProductId + 1);
-//    }
+    private Product product;
 
-    @Test
-    public void integrationTestProductRepositoryListAllProducts() {
-        //Arrange
-        //Act
-        Iterable<Product> products = productService.getAllProducts();
-        long size = products.spliterator().getExactSizeIfKnown();
-        //Assert
-        Assertions.assertTrue(size > 0, "Product list exists");
+    @BeforeEach
+    public void setup() {
+        product = new Product();
+        product.setId(1);
+        product.setDescription("productTest");
+        product.setLabel("productTest");
+        product.setIs_active(true);
+        product.setPrice(10.0);
+        product.setUrl("productUrl");
     }
 
-//    @Test
-//    public void integrationTestProductRepositoryUpdate() {
-//        //Arrange
-//        Product product = new Product();
-//        product.setDescription("test update product");
-//        product.setLabel("tested product");
-//        product.setPrice(40.0);
-//        product.setUrl("url");
-//        productService.saveProduct(product);
-//        int id = productService.getLastInsertedProductId();
-//        Product productAdded = productService.getProductById(id);
-//        String expected = "updated description";
-//        productAdded.setDescription(expected);
-//        //Act
-//        productService.saveProduct(productAdded);
-//        Product updatedProduct = productService.getProductById(id);
-//        String actual = updatedProduct.getDescription();
-//        //Assert
-//        Assertions.assertEquals(expected, actual);
-//        productService.deleteProductById(id);
-//    }
+    @DisplayName("JUnit test for saveProduct method")
+    @Test
+    public void givenProductObject_whenSaveProduct_thenReturnProductObject() {
+        //given
+        given(productRepositroy.findById(product.getId()))
+                .willReturn(Optional.empty());
 
-//    @Test
-//    public void integrationTestProductRepositoryDeleteProductById() {
-//        //Arrange
-//        Product product = new Product();
-//        product.setDescription("test delete product");
-//        product.setLabel("tested product");
-//        product.setPrice(50.0);
-//        product.setUrl("url");
-//        productService.saveProduct(product);
-//        int id = productService.getLastInsertedProductId();
-//        //Act
-//        productService.deleteProductById(id);
-//        int idAfterDeleteTest = productService.getLastInsertedProductId();
-//        //Assert
-//        Assertions.assertNotEquals(id, idAfterDeleteTest, "Failure , id are equals");
-//    }
+        given(productRepositroy.save(product)).willReturn(product);
+
+        //when        
+        Product savedProduct = productService.saveProduct(product);
+
+        //then
+        assertThat(savedProduct).isNotNull();
+    }
+
+    @DisplayName("JUnit test for getAllProducts method")
+    @Test
+    public void givenProductList_whenGetAllProducts_thenReturnProductsList() {
+        //given
+        Product product2 = new Product();
+        product.setId(2);
+        product.setDescription("product2Test2");
+        product.setLabel("product2Test");
+        product.setIs_active(true);
+        product.setPrice(2.0);
+        product.setUrl("product2Url");
+
+        given(productRepositroy.findAll()).willReturn(List.of(product2, product2));
+
+        //when        
+        List<Product> productList = productService.getAllProducts();
+
+        //then
+        assertThat(productList).isNotNull();
+        assertThat(productList.size()).isEqualTo(2);
+    }
+
+    @DisplayName("JUnit test for getProductById method")
+    @Test
+    public void givenProductId_whenGetProductById_thenReturnProductObject() {
+        // given
+        given(productRepositroy.findById(1)).willReturn(Optional.of(product));
+
+        // when
+        Product savedProduct = productService.getProductById(product.getId());
+
+        //then
+        assertThat(savedProduct).isNotNull();
+    }
+
+    @DisplayName("JUnit test for deleteProductById method")
+    @Test
+    public void givenProductId_whenDeleteProductById_thenNothing() {
+        // given
+        Integer productId = 1;
+
+        willDoNothing().given(productRepositroy).deleteById(productId);
+
+        // when
+        productService.deleteProductById(productId);
+
+        //then
+        verify(productRepositroy, times(1)).deleteById(productId);
+    }
 }

@@ -22,13 +22,13 @@ public class CategoryServiceTests {
     @InjectMocks
     private CategoryServiceImpl categoryService;
 
-    private Category category1;
+    private Category category;
 
     @BeforeEach
     public void setup() {
-        category1 = new Category();
-        category1.setId(1);
-        category1.setLabel("firstCategory");
+        category = new Category();
+        category.setId(1);
+        category.setLabel("firstCategory");
     }
 
     @DisplayName("JUnit test for getAllCategories method")
@@ -39,10 +39,10 @@ public class CategoryServiceTests {
         category2.setId(2);
         category2.setLabel("test");
 
-        given(CategoryRepository.findAll()).willReturn(List.of(category1, category2));
+        given(CategoryRepository.findAll()).willReturn(List.of(category, category2));
         //when
         List<Category> categoryList = categoryService.getAllCategories();
-        
+
         //then
         assertThat(categoryList).isNotNull();
         assertThat(categoryList.size()).isEqualTo(2);

@@ -12,7 +12,7 @@ public interface ProductService {
     boolean checkIfParamMatchNull(Integer categoryId);
     boolean checkIfParamMatchZero(Integer categoryId);
     List<Product> getActiveProductListByCategory(Integer categoryId);
-    void saveProduct(Product product);
+    Product saveProduct(Product product);
     Product getProductById(Integer id);
     void deleteProductById(Integer id);
     Integer getLastInsertedProductId();
