@@ -30,8 +30,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin saveAdmin(Admin admin) {
         Optional<Admin> savedAdmin = adminRepository.findById(admin.getId());
-        if (savedAdmin.isPresent()) {
-            throw new InvalidConfigurationPropertyValueException("admin", admin, "Admin already exist with given id:" + admin.getId());
+        if (!savedAdmin.isPresent()) {
+            throw new InvalidConfigurationPropertyValueException("admin", admin, "Admin does not exist with given id:" + admin.getId());
         }
         return adminRepository.save(admin);
     }
