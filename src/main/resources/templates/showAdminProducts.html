@@ -24,9 +24,12 @@
         </nav>
         <div class="container-fluid text-center mt-5">
             <h2>ADMIN PAGE</h2>
-            <div class="row">
+            <div class="col">
                 <div class="col-lg-3">
                     <a th:href = "@{/admin/product/new}" class="btn btn-primary mb-3">Add product</a>                    
+                </div>
+                <div class="col-lg-3">
+                    <a th:href = "@{/admin/category/new}" class="btn btn-primary mb-3">Add category</a>                    
                 </div>
             </div> 
             <table class="table table-bordered shadow-lg mt-5 table-hover">
