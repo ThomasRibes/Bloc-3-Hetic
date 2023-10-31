@@ -63,5 +63,9 @@ public class DiscountServiceImpl implements DiscountService {
     public boolean checkDiscountDatesCompatibility(Discount discount) {
         return discount.getEndDate().after(discount.getStartDate());
     }
+    @Override
+    public boolean checkAllFieldsFilled(Discount discount) {                  
+        return discount.getRate() != null && discount.getStartDate() != null && discount.getEndDate() != null;
+    }
 
 }

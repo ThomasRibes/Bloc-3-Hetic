@@ -17,4 +17,5 @@ public interface ProductService {
     void deleteProductById(Integer id);
     Integer getLastInsertedProductId();
     void updateDiscountPrice(List<Product> productList);
+    Product getLastEntryProduct();
 }

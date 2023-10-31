@@ -12,4 +12,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     @Query("SELECT p FROM Product p WHERE p.is_active = true")
     public List<Product> findAllActiveProducts();
     
+    Product findTopByOrderByIdDesc();
+    
 }

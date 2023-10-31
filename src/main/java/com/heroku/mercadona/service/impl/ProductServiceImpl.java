@@ -133,5 +133,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllActiveProducts() {
         return productRepository.findAllActiveProducts();
     }
+    @Override
+    public Product getLastEntryProduct() {
+        return productRepository.findTopByOrderByIdDesc();
+    }
 
 }

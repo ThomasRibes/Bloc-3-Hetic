@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>        
         <meta name="description" content="Mercadona retail, get all you want"></meta>
         <meta http-equiv="Content-Security-Policy" content="form-action 'self';">
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
-        <link rel="stylesheet" type="text/css" th:href="@{css/main.css}" ></link>
+            <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" ></link>
+            <link rel="stylesheet" type="text/css" th:href="@{css/main.css}" ></link>
     </head>
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-primary">
@@ -26,41 +26,67 @@
         </nav>
         <div class="container text-center d-flex flex-column align-items-center mt-5">
             <h2 class="mt-5">Add a product</h2>
-            <form class="col-12 col-sm-8 mt-5" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data" method="post">
-                <div class="form-group">
-                    <label for="label">Product label</label>
-                    <input th:field="*{label}" type="text" class="form-control" id="label" placeholder="Type the product label here (50 char max)" required>
-                        <span class="text-danger" th:if="${#fields.hasErrors('label')}" th:errors="*{label}" >Error</span>
+            <form class="col-12 col-sm-8 mt-5 mb-5" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data" method="post">
+                <div>
+                    <div class="form-group">
+                        <label for="label">Product label</label>
+                        <input th:field="*{label}" type="text" class="form-control" id="label" placeholder="Type the product label here (50 char max)" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('label')}" th:errors="*{label}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Product price (€)</label>
+                        <input th:field="*{price}" type="number" class="form-control" id="price" step=".01" pattern="\d+" min="0.01" placeholder="Type the product price here" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Product description</label>
+                        <textarea th:field="*{description}" class="form-control" id="Description" rows="3" maxlength="150" placeholder="Type the product description here (150 char max)" required></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select th:field="*{category}" class="form-control" id="category" required>
+                            <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
+                        </select>
+                        <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}" >Error</span>
+                    </div>
+                    <div class="form-group" >
+                        <label for="picture">Product picture (512ko max, only .png or .jpg are allowed)</label>
+                        <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" id="picture" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="is_active">Product is active</label>
+                        <input th:field="*{is_active}" type="checkbox" class="form-control" id="is_active" >
+                            <span class="text-danger" th:if="${#fields.hasErrors('is_active')}" th:errors="*{is_active}" >Error</span>
+                    </div>
+                    <input th:field="*{url}" type="hidden" class="form-control" id="url" name="url" value="No picture at the moment" required>
+                        <span class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" >Error</span>
                 </div>
-                <div class="form-group">
-                    <label for="price">Product price (€)</label>
-                    <input th:field="*{price}" type="number" class="form-control" id="price" step=".01" pattern="\d+" min="0.01" placeholder="Type the product price here" required>
-                        <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" >Error</span>
+                <div class="mt-5" th:object="${discount}" method="post">
+                    <div class="form-group">
+                        <label for="rate">Product rate %</label>
+                        <input type="number" class="form-control" id="rate" name="rate" pattern="\d+" min="1" max="99" placeholder="Type the discount rate here (min = 1 , max = 99)">
+                            <span class="text-danger" th:if="${#fields.hasErrors('rate')}" th:errors="*{rate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start date</label>
+                        <input type="date" class="form-control" id="startDate" name="startDate" placeholder ="Start date should be different and before the end date">
+                            <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End date</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate" placeholder ="End date should be different and after the start date">
+                            <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" >Error</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="is_active">Discount is active</label>
+                        <input th:field="*{is_active}" type="checkbox" class="form-control" id="is_active" >
+                            <span class="text-danger" th:if="${#fields.hasErrors('is_active')}" th:errors="*{is_active}" >Error</span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="Description">Product description</label>
-                    <textarea th:field="*{description}" class="form-control" id="Description" rows="3" maxlength="150" placeholder="Type the product description here (150 char max)" required></textarea>
-                    <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" >Error</span>
-                </div>
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select th:field="*{category}" class="form-control" id="category" required>
-                        <option th:each="category : ${listCategories}" th:value="${category.id}" th:text="${category.label}"></option>
-                    </select>
-                    <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}" >Error</span>
-                </div>
-                <div class="form-group" >
-                    <label for="picture">Product picture (512ko max, only .png or .jpg are allowed)</label>
-                    <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" id="picture" required>
-                </div>
-                <div class="form-group">
-                    <label for="is_active">Is active</label>
-                    <input th:field="*{is_active}" type="checkbox" class="form-control" id="is_active" >
-                        <span class="text-danger" th:if="${#fields.hasErrors('is_active')}" th:errors="*{is_active}" >Error</span>
-                </div>
-                <input th:field="*{url}" type="hidden" class="form-control" id="url" name="url" value="No picture at the moment" required>
-                    <span class="text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" >Error</span>
-                    <button type="submit" class="btn btn-primary">Add this product</button>
+
+                <button type="submit" class="btn btn-primary">Add this product</button>
+
             </form>
         </div>
     </body>

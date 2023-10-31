@@ -2,9 +2,11 @@ package com.heroku.mercadona.controller;
 
 import com.heroku.mercadona.model.Admin;
 import com.heroku.mercadona.model.Category;
+import com.heroku.mercadona.model.Discount;
 import com.heroku.mercadona.model.Product;
 import com.heroku.mercadona.service.AdminService;
 import com.heroku.mercadona.service.CategoryService;
+import com.heroku.mercadona.service.DiscountService;
 import com.heroku.mercadona.service.ProductService;
 import com.heroku.mercadona.service.StorageService;
 import java.util.List;
@@ -25,12 +27,14 @@ public class ProductController {
     private final CategoryService categoryService;
     private final AdminService adminService;
     private final StorageService storageService;
+    private final DiscountService discountService;
 
-    public ProductController(ProductService productService, CategoryService categoryService, AdminService adminService, StorageService storageService) {
+    public ProductController(ProductService productService, CategoryService categoryService, AdminService adminService, StorageService storageService, DiscountService discountService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.adminService = adminService;
         this.storageService = storageService;
+        this.discountService = discountService;
     }
 
     @GetMapping("/catalog")
@@ -70,13 +74,17 @@ public class ProductController {
     public String createProductForm(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
+        Discount discount = new Discount();
+        model.addAttribute("discount", discount);
         List<Category> listCategories = categoryService.getAllCategories();
         model.addAttribute("listCategories", listCategories);
+        Integer rate=  0;
+        model.addAttribute("rate", rate);
         return "createProduct";
     }
 
     @PostMapping("/admin/product/add")
-    public String addProduct(@RequestParam(value = "file") MultipartFile file, @Valid Product product, BindingResult result, Model model) {
+    public String addProduct(@RequestParam(value = "file") MultipartFile file, @Valid Product product,Discount discount, BindingResult result, Model model) {
         if (result.hasErrors()) {
             List<Category> listCategories = categoryService.getAllCategories();
             model.addAttribute("listCategories", listCategories);
@@ -91,6 +99,13 @@ public class ProductController {
         Admin admin = this.adminService.getAdminByName(username);
         admin.addProduct(product);
         this.adminService.saveAdmin(admin);
+        if (discountService.checkAllFieldsFilled(discount)) {
+            Product last = productService.getLastEntryProduct();
+            if (discountService.checkDiscountDatesCompatibility(discount)) {
+                last.addDiscount(discount);
+                this.productService.saveProduct(last);
+            }
+        }
         return "redirect:/admin";
     }
 

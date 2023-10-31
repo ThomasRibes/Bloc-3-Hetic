@@ -32,7 +32,7 @@ public class DiscountController {
         model.addAttribute("productDiscountList", productDiscountList);
         model.addAttribute("product", product);
         model.addAttribute("discount", discount);
-        return "manageDiscount";
+        return "manageDiscounts";
     }
 
     @PostMapping("/admin/product/{idProduct}/discount/add")
@@ -43,7 +43,7 @@ public class DiscountController {
             List<Discount> productDiscountList = product.getDiscounts();
             model.addAttribute("productDiscountList", productDiscountList);
             model.addAttribute("product", product);
-            return "manageDiscount";
+            return "manageDiscounts";
         }
         if (discountService.checkDiscountDatesCompatibility(discount)) {
             Product product = this.productService.getProductById(idProduct);
