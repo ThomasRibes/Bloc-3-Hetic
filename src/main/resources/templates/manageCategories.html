@@ -50,7 +50,7 @@
                         <tr th:each = "category : ${categoryList}">
                             <td th:text = "${category.label}"></td>
                             <td class="col-lg-4" >
-                                <a th:href = "@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-success mb-3">Delete category</a>
+                                <a th:href = "@{/admin/category/edit/{id}(id=${category.id})}" class="btn btn-primary mb-3">Update category</a>
                             </td>
                         </tr>
                     </tbody>

@@ -39,6 +39,23 @@ public class CategoryController {
         this.categoryService.saveCategory(category);
         return "redirect:/admin/category/new";
     }
+    
+    @GetMapping("/admin/category/edit/{id}")
+    public String updateCategoryForm(@PathVariable("id") Integer id, Model model) {
+        Category category = categoryService.getCategoryById(id);
+        model.addAttribute("category", category);
+        return "updateCategory";
+    }
+
+    @PostMapping("/admin/category/update/{id}")
+    public String updateCategory(@PathVariable("id") Integer id, @Valid Category category, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            category.setId(id);
+            return "updateCategory";
+        }
+        categoryService.saveCategory(category);
+        return "redirect:/admin/category/new";
+    }    
 
     @GetMapping("admin/category/delete/{id}")
     public String deleteCategory(@PathVariable("id") Integer id, Model model) {

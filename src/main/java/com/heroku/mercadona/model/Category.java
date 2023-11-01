@@ -24,11 +24,11 @@ public class Category {
 
     @NotNull(message = "Label is compulsory")
     @Size(min = 3, max = 50, message = "Label should be a minimum of 3 characters and a maximum of 50")
-    @Pattern(regexp = "[a-z-A-Z]*", message = "Label has invalid characters")
+    @Pattern(regexp = "^[A-Za-z0-9\\s^'!.?:()_-[,]]*$", message = "Label has invalid characters, only apostrophes, alphanumerics and _-.!?:() are allowed")
     @Column(nullable = false, unique = true, length = 50)
     private String label;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
     public Integer getId() {
