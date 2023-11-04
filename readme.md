@@ -57,5 +57,3 @@ Une fois sur cette page, vous pouvez ajouter une promotion en complétant le for
 Vous pouvez activer/désactiver une promotion existante dans le tableau en bas de la page qui liste les promotions de ce produit.  
 Pour désactiver une promotion il vous faut utiliser le bouton jaune "Disactivate discount" dans la colonne "Actions".  
 Pour activer une promotion il vous faut utiliser le bouton vert "Activate discount" dans la colonne "Actions".  
-
-### Fin de la notice d'utilisation ###

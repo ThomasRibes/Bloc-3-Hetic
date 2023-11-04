@@ -21,7 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class DiscountServiceTests {
 
     @Mock
-    private DiscountRepository discountRepositroy;
+    private DiscountRepository discountRepository;
 
     @InjectMocks
     private DiscountServiceImpl discountService;
@@ -40,10 +40,10 @@ public class DiscountServiceTests {
     @Test
     public void givenDiscountObject_whenSaveDiscount_thenReturnDiscountObject() {
         //given
-        given(discountRepositroy.findById(discount.getId()))
+        given(discountRepository.findById(discount.getId()))
                 .willReturn(Optional.empty());
 
-        given(discountRepositroy.save(discount)).willReturn(discount);
+        given(discountRepository.save(discount)).willReturn(discount);
 
         //when        
         Discount savedDiscount = discountService.saveDiscount(discount);
@@ -62,7 +62,7 @@ public class DiscountServiceTests {
         discount.setRate(20);
         discount.setIs_active(false);
 
-        given(discountRepositroy.findAll()).willReturn(List.of(discount, discount2));
+        given(discountRepository.findAll()).willReturn(List.of(discount, discount2));
 
         // when
         List<Discount> discountList = discountService.getAllDiscounts();
@@ -76,7 +76,7 @@ public class DiscountServiceTests {
     @Test
     public void givenDiscountId_whenGetDiscountById_thenReturnDiscountObject() {
         // given
-        given(discountRepositroy.findById(1)).willReturn(Optional.of(discount));
+        given(discountRepository.findById(1)).willReturn(Optional.of(discount));
 
         // when
         Discount savedDiscount = discountService.getDiscountById(discount.getId());
@@ -91,13 +91,13 @@ public class DiscountServiceTests {
         // given
         Integer discountId = 1;
 
-        willDoNothing().given(discountRepositroy).deleteById(discountId);
+        willDoNothing().given(discountRepository).deleteById(discountId);
 
         // when
         discountService.deleteDiscountById(discountId);
 
         //then
-        verify(discountRepositroy, times(1)).deleteById(discountId);
+        verify(discountRepository, times(1)).deleteById(discountId);
     }
 
 }
