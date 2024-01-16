@@ -4,6 +4,10 @@
 https://tribes-mercadona-628d20093610.herokuapp.com/
 
 
+--------------------------------------------------------------------
+
+# Notice d'utilisation #
+
 ## Utilisation des filtres de la page catalog accessibles à tous ##
 Utilisez la liste déroulante pour filtrer la catégorie voulue.  
 Cette partie de la solution est responsive et peut être consulter sur mobile par exemple.  
