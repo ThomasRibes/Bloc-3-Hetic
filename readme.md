@@ -1,4 +1,8 @@
-# Mercadona project bloc 3 Thomas Ribes #
+# Projet Mercadona effectué dans le cadre du bloc 3 Hetic #
+# Le projet a pour but de dématérialisé des pages de promotions pour un groupe de vente au détail avec le back office pour gérer les porduits, promotions et catégories #
+
+https://tribes-mercadona-628d20093610.herokuapp.com/
+
 
 ## Utilisation des filtres de la page catalog accessibles à tous ##
 Utilisez la liste déroulante pour filtrer la catégorie voulue.  
