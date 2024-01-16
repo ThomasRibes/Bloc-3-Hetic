@@ -1,5 +1,5 @@
 # Projet Mercadona effectué dans le cadre du bloc 3 Hetic #
-# Le projet a pour but de dématérialisé des pages de promotions pour un groupe de vente au détail avec le back office pour gérer les porduits, promotions et catégories #
+# Le projet a pour but de dématérialiser des pages de promotions pour un groupe de vente au détail avec le back office pour gérer les produits, promotions et catégories #
 
 https://tribes-mercadona-628d20093610.herokuapp.com/
 
